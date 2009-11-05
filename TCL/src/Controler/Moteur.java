@@ -29,7 +29,7 @@ public class Moteur extends Thread{
     public void run(){
         while(true){
             for(int i=0; i<metros.size(); i++){
-                metros.get(i).avancer(i);
+               // metros.get(i).avancer(i);
             }
         }
     }
