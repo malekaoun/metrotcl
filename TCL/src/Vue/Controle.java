@@ -41,44 +41,53 @@ public class Controle extends ReseauView implements ActionListener{
     }
 
    public void  InitControle(){
-        frame.getContentPane().setLayout(new BorderLayout(10, 10));
+        frame.getContentPane().setLayout(new BorderLayout(10,10));
 
         //Initialise les menus
                
-                JPanel buttonPanel = new JPanel();
+                JPanel buttonPanel1 = new JPanel();
+                JPanel buttonPanel2 = new JPanel();
+                JPanel buttonPanel3 = new JPanel();
                 JPanel StationPanel = new JPanel();
 		
 
-		frame.getContentPane().add(buttonPanel,"North");
+		frame.getContentPane().add(buttonPanel1,"North");
+                frame.getContentPane().add(buttonPanel2);
+                frame.getContentPane().add(buttonPanel3);
                 frame.getContentPane().add(StationPanel,"South");
 
-		buttonPanel.setLayout(new GridLayout(0,2));
+		buttonPanel1.setLayout(new BorderLayout(10,10));
+               
 		String[] Station = {"1", "2", "3","4","5","6", "7", "8", "9","10", "11", "12"};
 
 		// Create the combo box
 		
 		JLabel StationdepartLabel = new JLabel(" Selectionner Station de depart: ");
-		buttonPanel.add(StationdepartLabel);
+		buttonPanel1.add(StationdepartLabel,"East");
                 JComboBox ListStationDepart = new JComboBox(Station);
-		buttonPanel.add(ListStationDepart);
+                ListStationDepart.setPreferredSize(new Dimension(15, 5));
+		buttonPanel1.add(ListStationDepart,"West");
 
 
                 JLabel StationarriveLabel = new JLabel(" Selectionner Station d'arrivée: ");
-                buttonPanel.add(StationarriveLabel);
-              
+                buttonPanel2.add(StationarriveLabel,"East");
                 JComboBox ListStationArrivee = new JComboBox(Station);
-                buttonPanel.add(ListStationArrivee);
+                buttonPanel2.add(ListStationArrivee,"West");
 
                 JButton AjouterPersonne = new JButton("Ajouter la personne");
-		buttonPanel.add(AjouterPersonne);
+		buttonPanel3.add(AjouterPersonne,"Center");
 		AjouterPersonne.addActionListener(this);
 
-                StationPanel.setLayout(new BorderLayout(10,10));
-                JLabel SupprimerStation = new JLabel(" Supprimer une Station : ");
-                JComboBox ListStation = new JComboBox(Station);
-                StationPanel.add(SupprimerStation);
-                StationPanel.add(ListStation);
+                StationPanel.setLayout(new GridLayout(0,2,5,5));
                 
+                JLabel SupprimerStation = new JLabel(" Supprimer une Station : ");
+                StationPanel.add(SupprimerStation);
+                JComboBox ListStation = new JComboBox(Station);
+                StationPanel.add(ListStation);
+
+                JButton SupprimeStation = new JButton("Supprimer Station");
+		StationPanel.add(SupprimeStation);
+		SupprimeStation.addActionListener(this);
 
 		ListStationDepart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
