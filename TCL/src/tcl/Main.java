@@ -105,8 +105,12 @@ public class Main {
 
         Metro metroPremierA = new Metro(10, 100, ligneA);
         Metro metroPremierB = new Metro(50, 20, ligneB);
-       // g.getMetros().add(metroPremierA);
-        g.getMetros().add(metroPremierB);
+        Metro metroPremierC = new Metro(50, 400, ligneC);
+        Metro metroPremierD = new Metro(400, 50, ligneD);
+        g.getMetros().add(metroPremierA);
+        //g.getMetros().add(metroPremierB);
+        g.getMetros().add(metroPremierC);
+        //g.getMetros().add(metroPremierD);
         Reseau reseau= new Reseau(g);
         ReseauController controller = new ReseauController(reseau);
 

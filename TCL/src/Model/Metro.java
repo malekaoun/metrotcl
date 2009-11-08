@@ -18,6 +18,8 @@ public class Metro {
     private ArrayList<Usager> listPassager = new ArrayList<Usager>();
     private static final int maxPlace=50;
     private Ligne ligne;
+    private int compteur=1;
+    private boolean avance=true;
 
 
     public Metro(int x, int y, Ligne l){
@@ -92,4 +94,22 @@ public class Metro {
     public int getMaxPlace() {
         return maxPlace;
     }
+
+    public int getCompteur() {
+        return compteur;
+    }
+
+    public void setCompteur(int compteur) {
+        this.compteur = compteur;
+    }
+
+    public boolean isAvance() {
+        return avance;
+    }
+
+    public void setAvance(boolean avance) {
+        this.avance = avance;
+    }
+
+
 }
