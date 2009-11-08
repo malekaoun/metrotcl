@@ -28,7 +28,8 @@ public class Reseau extends Thread{
                     if(m.getX()<m.getLigne().getListStation().get(j).getX()
                         || m.getY()<m.getLigne().getListStation().get(j).getY()){
                         int dir=targetDir(m, m.getLigne().getListStation().get(j).getX(), m.getLigne().getListStation().get(j).getY());
-                        m.avancer(1, dir);
+                        System.out.println("sommet "+j+", dir "+dir);
+                        m.avancer(5, dir);
                     }else {
                         try {
                             sleep(1000);
@@ -40,7 +41,7 @@ public class Reseau extends Thread{
                     
             f.repaint();
             try {
-                Thread.sleep(10);
+                Thread.sleep(50);
             } catch(Exception e){
                 System.err.println("erreur: "+e);
             }
@@ -59,29 +60,27 @@ public class Reseau extends Thread{
     }
 
     
-    private int targetDir(Metro s, int x,int y){
-    int d=0;
-    if (s.getX()>x){
-    if (s.getY()>y){
-    double q = (double)((double)s.getX()-x)/((double)s.getY()-y);
-    d = (int) (((Math.atan(1/q))/Math.PI)*180+180);
-    }
-    else {
-    double q = (double)((double)s.getX()-x)/((double)y-s.getY());
-    d = (int) (((Math.atan(q))/Math.PI)*180+90);
-    }
-    }
-    else {
-    if (s.getY()>y){
-    double q = (double)((double)s.getX()-x)/((double)s.getY()-y);
-    d = (int) (((Math.atan(1/q))/Math.PI)*180);
-    }
-    else {
-    double q = (double)((double)s.getX()-x)/((double)y-s.getY());
-    d = (int) (((Math.atan(q))/Math.PI)*180+90);
-    }
-    }
-    return d;
+    private int targetDir(Metro s, int x, int y){
+        int d=0;
+        if (s.getX()>x){
+            if (s.getY()>y){
+                double q = (double)((double)s.getX()-x)/((double)s.getY()-y);
+                d = (int) (((Math.atan(1/q))/Math.PI)*180+180);
+            } else {
+                double q = (double)((double)s.getX()-x)/((double)y-s.getY());
+                d = (int) (((Math.atan(q))/Math.PI)*180+90);
+                System.out.println(d);
+            }
+        } else {
+            if (s.getY()>y){
+                double q = (double)((double)s.getX()-x)/((double)s.getY()-y);
+                d = (int) (((Math.atan(1/q))/Math.PI)*180);
+            } else {
+                double q = (double)((double)s.getX()-x)/((double)y-s.getY());
+                d = (int) (((Math.atan(q))/Math.PI)*180+90);
+            }
+        }
+        return d;
     }
 
     public Feuille getF() {
