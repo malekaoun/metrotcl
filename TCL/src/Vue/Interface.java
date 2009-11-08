@@ -40,7 +40,7 @@ public class Interface extends ReseauView {
     private void initInterface() {
         frame.getContentPane().setLayout(new BorderLayout(10, 10));
         feuille = new Feuille(this.getController().getModel().getGraphe());
-        feuille.setPreferredSize(new Dimension(1500, 1500));
+        feuille.setPreferredSize(new Dimension(800, 800));
         System.out.println(feuille);
         System.out.println(feuille.getBackground());
 
@@ -55,7 +55,7 @@ public class Interface extends ReseauView {
 
         addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
 
-        //frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.pack();
 
     }

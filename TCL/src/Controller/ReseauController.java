@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.*;
+import Vue.Controle;
 import Vue.Interface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +18,15 @@ import java.awt.event.ActionListener;
 public class ReseauController implements ActionListener {
 
     private ReseauView Interface = null;
+    private ReseauView Controle = null;
     private Reseau model = null;
+
 
     public ReseauController(Reseau r) {
         this.model = r;
 
         Interface = new Interface(this);
+        Controle = new Controle(this);
 
     }
 
