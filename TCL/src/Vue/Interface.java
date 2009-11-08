@@ -25,6 +25,8 @@ public class Interface extends ReseauView {
 
     private Feuille feuille;
     private JFrame frame;
+    public static final int w = 800;
+    public static final int h = 750;
 
     public Interface(ReseauController c) {
 
@@ -40,7 +42,7 @@ public class Interface extends ReseauView {
     private void initInterface() {
         frame.getContentPane().setLayout(new BorderLayout(10, 10));
         feuille = new Feuille(this.getController().getModel().getGraphe());
-        feuille.setPreferredSize(new Dimension(800, 800));
+        feuille.setPreferredSize(new Dimension(w, h));
         System.out.println(feuille);
         System.out.println(feuille.getBackground());
 
@@ -55,6 +57,7 @@ public class Interface extends ReseauView {
 
         addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
 
+        frame.setLocation(291, 0);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.pack();
 
