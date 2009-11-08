@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -72,12 +71,20 @@ public class Feuille extends JPanel{
             for(int i=0; i<graphe.getSommets().size(); i++){
                 dessineStation(graphe.getSommets().get(i),g);
             }
+            for(int i=0; i<graphe.getMetros().size(); i++){
+                dessineMetro(graphe.getMetros().get(i),g);
+            }
         }
     }
 
     public void dessineStation(Station station, Graphics g){
         g.setColor(Color.BLACK);
         g.fillOval(station.getX()-10, station.getY()-10, 20,20);
+    }
+
+    public void dessineMetro(Metro m, Graphics g){
+        g.setColor(Color.RED);
+        g.draw3DRect(m.getX(), m.getY()-5, 10, 10, true);
     }
 
     private Color decodeColor(int c) {

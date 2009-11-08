@@ -49,6 +49,13 @@ public class Metro {
         y = newY;
     }
 
+    public void recaler(int dist, int dir){
+        int newX = (int) Math.round(x-dist*Math.cos(convDegGrad*dir));
+        int newY = (int) Math.round(y-dist*Math.sin(convDegGrad*dir));
+        x = newX;
+        y = newY;
+    }
+
     //GETTERS and SETTERS
     public int getX() {
         return x;

@@ -83,7 +83,7 @@ public class Main {
         ligneB.addStationToLigne(Station2);
         ligneB.addStationToLigne(Station8);
         ligneB.addStationToLigne(Station9);
-        ligneB.addStationToLigne(Station10);
+        //ligneB.addStationToLigne(Station10);
         lignes.add(ligneB);
 
         ligneC.addStationToLigne(Station8);
@@ -98,24 +98,28 @@ public class Main {
         ligneD.addStationToLigne(Station13);
         ligneD.addStationToLigne(Station17);
         ligneD.addStationToLigne(Station18);
-        ligneD.addStationToLigne(Station19);
+        //ligneD.addStationToLigne(Station19);
         lignes.add(ligneD);
 
         Graphe g = new Graphe(lignes);
 
+        Metro metroPremierA = new Metro(10, 100, ligneA);
+        Metro metroPremierB = new Metro(50, 20, ligneB);
+       // g.getMetros().add(metroPremierA);
+        g.getMetros().add(metroPremierB);
         Reseau reseau= new Reseau(g);
         ReseauController controller = new ReseauController(reseau);
 
         controller.displayViews();
 
 
-
+        reseau.start();
         Usager Usager1 = new Usager(10, 20, Station1, Station2);
         Usager Usager2 = new Usager(10, 30, Station3, Station4);
 
-        Metro metroPremierA = new Metro(10, 20, ligneA);
+        
 
-        reseau.addMetro(metroPremierA);
+        //reseau.addMetro(metroPremierA);
 
 
     }
