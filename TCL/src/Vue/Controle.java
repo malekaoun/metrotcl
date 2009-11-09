@@ -10,24 +10,21 @@ import Controller.ReseauView;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Event;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
-/**
- *
- * @author r
- */
-public class Controle extends ReseauView implements ActionListener{
+
+public class Controle extends ReseauView {
 
     private final JFrame frame;
     private JTextField inputValue;
     public static final Dimension VGAP = new Dimension(3,1);
     public static final Dimension HGAP = new Dimension(2,1);
+    public JComboBox ListStationDepart;
+    public JComboBox ListStationArrivee;
+
 
 
     public Controle (ReseauController c) {
@@ -69,19 +66,19 @@ public class Controle extends ReseauView implements ActionListener{
 		JLabel StationdepartLabel = new JLabel(" Selectionner Station de depart: ");
 		buttonPanel1.add(StationdepartLabel);
               
-                JComboBox ListStationDepart = new JComboBox(Station);              
+                ListStationDepart = new JComboBox(Station);              
 		buttonPanel1.add(ListStationDepart);
                 
 
 
                 JLabel StationarriveLabel = new JLabel(" Selectionner Station d'arrivée: ");
                 buttonPanel1.add(StationarriveLabel);
-                JComboBox ListStationArrivee = new JComboBox(Station);
+                ListStationArrivee = new JComboBox(Station);
                 buttonPanel1.add(ListStationArrivee);
 
                 JButton AjouterPersonne = new JButton("Ajouter la personne");
 		buttonPanel2.add(AjouterPersonne);
-		AjouterPersonne.addActionListener(this);
+		AjouterPersonne.addActionListener(this.getController());
                 
 
                 //StationPanel.setLayout(new BorderLayout(10,10));
@@ -93,24 +90,7 @@ public class Controle extends ReseauView implements ActionListener{
 
                 JButton SupprimeStation = new JButton("Supprimer Station");
 		StationPanel.add(SupprimeStation);
-		SupprimeStation.addActionListener(this);
-
-		ListStationDepart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JComboBox cb = (JComboBox)e.getSource();
-				int n = cb.getSelectedIndex();
-                              //  courante.setColor(n);
-				
-			}
-		});
-                ListStationArrivee.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JComboBox cb = (JComboBox)e.getSource();
-				int n = cb.getSelectedIndex();
-                              //  courante.setColor(n);
-
-			}
-		});
+		SupprimeStation.addActionListener(this.getController());
 
 
 
@@ -121,17 +101,9 @@ public class Controle extends ReseauView implements ActionListener{
 		JMenu menuFile=new JMenu("File"); // on installe le premier menu
                 menubar.add(menuFile);
 
-               // addMenuItem(menuFile, "Effacer", "Effacer", KeyEvent.VK_N);
+
                 addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
 
-
-		/* JMenu menuCommandes=new JMenu("Commandes"); // on installe le premier menu
-                menubar.add(menuCommandes);
-               addMenuItem(menuCommandes, "Avancer", "Avancer", -1);
-                addMenuItem(menuCommandes, "Droite", "Droite", -1);
-                addMenuItem(menuCommandes, "Gauche", "Gauche", -1);
-                addMenuItem(menuCommandes, "Lever Crayon", "Lever", -1);
-                addMenuItem(menuCommandes, "Baisser Crayon", "Baisser", -1);*/
 
 		JMenu menuHelp=new JMenu("Aide"); // on installe le premier menu
                 menubar.add(menuHelp);
@@ -141,7 +113,7 @@ public class Controle extends ReseauView implements ActionListener{
 
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         	frame.pack();
-  		display();
+  		
    }
 
 
@@ -179,7 +151,7 @@ public class Controle extends ReseauView implements ActionListener{
 	  b.setToolTipText(tooltiptext);
 	  b.setBorder(BorderFactory.createRaisedBevelBorder());
 	  b.setMargin(new Insets(0,0,0,0));
-	  b.addActionListener(this);
+	  b.addActionListener(this.getController());
 	}
 
     @Override
@@ -192,42 +164,16 @@ public class Controle extends ReseauView implements ActionListener{
         frame.dispose();
     }
 
-    public void actionPerformed(ActionEvent e) {
-       String c = e.getActionCommand();
 
-                // actions des boutons du haut
-                if (c.equals("Avancer")) {
-                                try {
-                                  int v = Integer.parseInt(inputValue.getText());
-                                  //courante.avancer(v);
-                                } catch (NumberFormatException ex){
-                                        System.err.println("ce n'est pas un nombre : " + inputValue.getText());
-                                }
-                } else if (c.equals("Droite"))  {
-                                try {
-                                  int v = Integer.parseInt(inputValue.getText());
-                                 // courante.droite(v);
-                                } catch (NumberFormatException ex){
-                                        System.err.println("ce n'est pas un nombre : " + inputValue.getText());
-                                }
-                } else if (c.equals("Gauche"))  {
-                                try {
-                                  int v = Integer.parseInt(inputValue.getText());
-                                //  courante.gauche(v);
-                                } catch (NumberFormatException ex){
-                                        System.err.println("ce n'est pas un nombre : " + inputValue.getText());
-                                }
-                } else if (c.equals("Lever")) ;// courante.leverCrayon();
-                else if (c.equals("Baisser")) ;// courante.baisserCrayon();
+    public JComboBox getListStationDepart(){
 
-                // actions des boutons du bas
-                else if (c.equals("Proc1")) ; //proc1();
-                else if (c.equals("Proc2")) ; //proc2();
-                else if (c.equals("Proc3")) ; //proc3();
-                else if (c.equals("Effacer")); //effacer();
-                else if (c.equals("Quitter")); //quitter();
+        return this.ListStationDepart;
     }
 
+    public JComboBox getListStationArrivee(){
+
+        return this.ListStationArrivee;
+    }
 
 
 }

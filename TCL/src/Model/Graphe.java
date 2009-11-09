@@ -6,12 +6,11 @@ public class Graphe {
     private ArrayList<Station> sommets;
     private ArrayList<Distance> aretes;
     private ArrayList<Ligne> lignes;
-    private ArrayList<Metro> metros;
+
 
     public Graphe () {
         sommets = new ArrayList<Station>();
         aretes = new ArrayList<Distance>();
-        metros = new ArrayList<Metro>();
     }
 
     public Graphe (ArrayList<Ligne> l) {
@@ -23,13 +22,11 @@ public class Graphe {
             }
         }
         aretes = new ArrayList<Distance>();
-        metros = new ArrayList<Metro>();
     }
 
     public Graphe (ArrayList<Station> s, ArrayList<Distance> d, ArrayList<Metro> m) {
         sommets = s;
         aretes = d;
-        metros = m;
     }
 
     public void addSommet (Station s) {
@@ -99,11 +96,4 @@ public class Graphe {
         return lignes;
     }
 
-    public ArrayList<Metro> getMetros() {
-        return metros;
-    }
-
-    public void setMetros(ArrayList<Metro> metros) {
-        this.metros = metros;
-    }
 }

@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -18,11 +19,13 @@ import javax.swing.JPanel;
  */
 public class Feuille extends JPanel{
     private Graphe graphe;
+    private ArrayList<Metro> metros;
 
-        boolean showTurtles=true;
 
-    public Feuille(Graphe graphe) {
+
+    public Feuille(Graphe graphe,ArrayList<Metro> m ) {
         this.graphe = graphe;
+        this.metros=m;
     }
 
         Image drawingImage;
@@ -44,13 +47,13 @@ public class Feuille extends JPanel{
                 reset();
             g.drawImage(drawingImage,0,0,null);
 		dessineGraphe(g);
+                dessineMetros(g);
 	}
 
 	public void drawIt(){
             Graphics g = getGraphics();
             g.drawImage(drawingImage,0,0,null);
-            if (showTurtles)
-		showTurtles(g);
+
 	}
 
 	public Graphics getImageGraphics(){
@@ -59,8 +62,7 @@ public class Feuille extends JPanel{
             return drawingImage.getGraphics();
 	}
 
-	void showTurtles(Graphics g){
-	}
+
     public void dessineGraphe(Graphics g){
         //Graphics g = jpanel.getGraphics();
         System.out.println(graphe);
@@ -70,10 +72,14 @@ public class Feuille extends JPanel{
             }
             for(int i=0; i<graphe.getSommets().size(); i++){
                 dessineStation(graphe.getSommets().get(i),g);
-            }
-            for(int i=0; i<graphe.getMetros().size(); i++){
-                dessineMetro(graphe.getMetros().get(i),g);
-            }
+            }           
+        }
+    }
+
+    public void dessineMetros(Graphics g){
+
+        for(int i=0; i<metros.size(); i++){
+                dessineMetro(metros.get(i),g);
         }
     }
 

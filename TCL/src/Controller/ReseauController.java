@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 public class ReseauController implements ActionListener {
 
     private ReseauView Interface = null;
-    private ReseauView Controle = null;
+    private Controle Controle = null;
     private Reseau model = null;
 
 
@@ -43,6 +43,7 @@ public class ReseauController implements ActionListener {
      */
     public void displayViews() {
         Interface.display();
+        Controle.display();
 
     }
 
@@ -51,11 +52,26 @@ public class ReseauController implements ActionListener {
      */
     public void closeViews() {
         Interface.close();
+        Controle.close();
 
     }
 
     public void actionPerformed(ActionEvent e) {
         String c = e.getActionCommand();
+        if (c.equals("Ajouter la personne")){
+            
+            int i=Controle.getListStationDepart().getSelectedIndex();
+            int j=Controle.getListStationArrivee().getSelectedIndex();
+
+            Station depart=this.getModel().getGraphe().getSommets().get(i);
+            Station arrivee=this.getModel().getGraphe().getSommets().get(j);
+
+            Usager u= new Usager(depart.getX(),depart.getY(),depart,arrivee);
+
+            depart.addUsagerToStation(u);
+            
+        }
+
         if (c.equals("Quitter")) {
             quitter();
         }

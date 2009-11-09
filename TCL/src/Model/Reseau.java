@@ -9,14 +9,12 @@ public class Reseau extends Thread{
     private Feuille f;
     private Graphe graphe;
     private ArrayList<Metro> metros;
-    private ArrayList<Ligne> lignes;
     //private int j=1;
 
     public Reseau(Graphe g) {
         //this.f=f;
         this.graphe = g;
-        this.metros = g.getMetros();
-        this.lignes = new ArrayList<Ligne>();
+        this.metros = new ArrayList<Metro>();
     }
 
     @Override
@@ -53,7 +51,7 @@ public class Reseau extends Thread{
                         }
                     }
                 }
-                    
+            
             f.repaint();
             try {
                 Thread.sleep(50);
@@ -71,9 +69,16 @@ public class Reseau extends Thread{
 
     public void addMetro(Metro m) {
 
-       //metros.add(m);
+        metros.add(m);
     }
 
+    public ArrayList<Metro> getMetros() {
+        return metros;
+    }
+
+    public void setMetros(ArrayList<Metro> metros) {
+        this.metros = metros;
+    }
     
     private int targetDir(Metro s, int x, int y){
         int d=0;

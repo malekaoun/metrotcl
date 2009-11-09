@@ -41,7 +41,7 @@ public class Interface extends ReseauView {
 
     private void initInterface() {
         frame.getContentPane().setLayout(new BorderLayout(10, 10));
-        feuille = new Feuille(this.getController().getModel().getGraphe());
+        feuille = new Feuille(this.getController().getModel().getGraphe(),this.getController().getModel().getMetros());
         feuille.setPreferredSize(new Dimension(w, h));
         System.out.println(feuille);
         System.out.println(feuille.getBackground());
