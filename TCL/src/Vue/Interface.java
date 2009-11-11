@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -21,7 +23,7 @@ import javax.swing.KeyStroke;
  *
  * @author p0401116
  */
-public class Interface extends ReseauView {
+public class Interface extends ReseauView implements Observer{
 
     private Feuille feuille;
     private JFrame frame;
@@ -41,7 +43,7 @@ public class Interface extends ReseauView {
 
     private void initInterface() {
         frame.getContentPane().setLayout(new BorderLayout(10, 10));
-        feuille = new Feuille(this.getController().getModel().getGraphe(),this.getController().getModel().getMetros());
+        feuille = new Feuille(this.getController().getModel().getGraphe(), this.getController().getModel().getMetros());
         feuille.setPreferredSize(new Dimension(w, h));
         System.out.println(feuille);
         System.out.println(feuille.getBackground());
@@ -56,6 +58,10 @@ public class Interface extends ReseauView {
         menubar.add(menuFile);
 
         addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
+
+        for (int i = 0; i < this.getController().getModel().getMetros().size(); i++) {
+            this.getController().getModel().getMetros().get(i).addObserver(this);
+        }
 
         frame.setLocation(291, 0);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -90,5 +96,26 @@ public class Interface extends ReseauView {
     @Override
     public void close() {
         frame.dispose();
+    }
+
+    public void Affiche() {
+        feuille.dessineGraphe();
+    }
+
+    public void update(Observable o, Object arg1) {
+
+        Affiche();
+
+        for(int i=0; i<this.getController().getModel().getMetros().size(); i++){
+
+            Metro m=this.getController().getModel().getMetros().get(i);
+
+            if(m==o){
+                feuille.eraseMetro(m);
+                feuille.dessineMetro(m);
+                feuille.drawIt();
+            }
+        }
+
     }
 }

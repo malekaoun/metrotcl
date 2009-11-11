@@ -9,7 +9,7 @@ import Vue.Controle;
 import Vue.Interface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.Observer;
 
 /**
  *
@@ -21,12 +21,11 @@ public class ReseauController implements ActionListener {
     private Controle Controle = null;
     private Reseau model = null;
 
-
     public ReseauController(Reseau r) {
         this.model = r;
         Interface = new Interface(this);
         Controle = new Controle(this);
-        this.model.setF(((Interface)Interface).getFeuille());
+        this.model.setF(((Interface) Interface).getFeuille());
     }
 
     /**
@@ -58,19 +57,29 @@ public class ReseauController implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String c = e.getActionCommand();
-        if (c.equals("Ajouter la personne")){
-            
-            int i=Controle.getListStationDepart().getSelectedIndex();
-            int j=Controle.getListStationArrivee().getSelectedIndex();
+        if (c.equals("Ajouter la personne")) {
 
-            Station depart=this.getModel().getGraphe().getSommets().get(i);
-            Station arrivee=this.getModel().getGraphe().getSommets().get(j);
+            int i = Controle.getListStationDepart().getSelectedIndex();
+            int j = Controle.getListStationArrivee().getSelectedIndex();
 
-            Usager u= new Usager(depart.getX(),depart.getY(),depart,arrivee);
+            Station depart = this.getModel().getGraphe().getSommets().get(i);
+            Station arrivee = this.getModel().getGraphe().getSommets().get(j);
+
+            Usager u = new Usager(depart.getX(), depart.getY(), depart, arrivee);
 
             depart.addUsagerToStation(u);
-            
+
         }
+        if (c.equals("Ajouter un Metro")) {
+
+            int i = Controle.getListLignes().getSelectedIndex();
+
+            Metro m = this.model.addMetro(i + 1);
+
+            m.addObserver((Observer) this.Interface);
+
+        }
+
 
         if (c.equals("Quitter")) {
             quitter();
@@ -80,5 +89,4 @@ public class ReseauController implements ActionListener {
     private void quitter() {
         System.exit(0);
     }
-
 }

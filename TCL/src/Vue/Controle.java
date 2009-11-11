@@ -24,6 +24,7 @@ public class Controle extends ReseauView {
     public static final Dimension HGAP = new Dimension(2,1);
     public JComboBox ListStationDepart;
     public JComboBox ListStationArrivee;
+    public JComboBox ListLignes;
 
 
 
@@ -49,6 +50,7 @@ public class Controle extends ReseauView {
                 JPanel buttonPanel1 = new JPanel();
                 JPanel buttonPanel2 = new JPanel();
                 JPanel StationPanel = new JPanel();
+                JPanel MetroPanel = new JPanel();
 		
 
 		frame.getContentPane().add(buttonPanel1,BorderLayout.NORTH);
@@ -60,6 +62,7 @@ public class Controle extends ReseauView {
 
                
 		String[] Station = {"1", "2", "3","4","5","6", "7", "8", "9","10", "11", "12"};
+                String[] Lignes = {"1", "2", "3","4"};
 
 		// Create the combo box
 		
@@ -80,7 +83,7 @@ public class Controle extends ReseauView {
 		buttonPanel2.add(AjouterPersonne);
 		AjouterPersonne.addActionListener(this.getController());
                 
-
+/*
                 //StationPanel.setLayout(new BorderLayout(10,10));
                 StationPanel.add(Box.createRigidArea(VGAP));
                 JLabel SupprimerStation = new JLabel(" Supprimer une Station : ");
@@ -90,7 +93,17 @@ public class Controle extends ReseauView {
 
                 JButton SupprimeStation = new JButton("Supprimer Station");
 		StationPanel.add(SupprimeStation);
-		SupprimeStation.addActionListener(this.getController());
+		SupprimeStation.addActionListener(this.getController());*/
+
+                MetroPanel.add(Box.createRigidArea(VGAP));
+                JLabel AjoutMetroLabel = new JLabel(" Ajouter un Metro sur la Ligne :");
+                StationPanel.add(AjoutMetroLabel);
+                ListLignes = new JComboBox(Lignes);
+                StationPanel.add(ListLignes);
+
+                JButton AjoutMetro= new JButton("Ajouter un Metro");
+		StationPanel.add(AjoutMetro);
+		AjoutMetro.addActionListener(this.getController());
 
 
 
@@ -109,6 +122,7 @@ public class Controle extends ReseauView {
                 menubar.add(menuHelp);
                 addMenuItem(menuHelp, "Aide", "Help", -1);
                 addMenuItem(menuHelp, "A propos", "About", -1);
+
 
 
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -174,6 +188,13 @@ public class Controle extends ReseauView {
 
         return this.ListStationArrivee;
     }
+
+    public JComboBox getListLignes(){
+
+        return this.ListLignes;
+    }
+
+
 
 
 }

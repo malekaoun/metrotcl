@@ -40,93 +40,47 @@ public class Main {
     }
 
     public static void Init() {
-        Station Station1 = new Station(10, 100);
-        Station Station2 = new Station(100, 100);
-        Station Station3 = new Station(250, 100);
-        Station Station4 = new Station(400, 100);
-        Station Station5 = new Station(600, 100);
 
-        Station Station6 = new Station(50, 20);
-        Station Station7 = new Station(50, 150);
-        Station Station8 = new Station(50, 400);
-        Station Station9 = new Station(50, 600);
-        Station Station10 = new Station(50, 800);
+        Reseau reseau = new Reseau();
 
-        Station Station11 = new Station(650, 400);
-        Station Station12 = new Station(520, 400);
-        Station Station13 = new Station(350, 400);
-        Station Station14 = new Station(290, 400);
-        Station Station15 = new Station(160, 400);
+        //Ligne 1 Noire
+        reseau.addStation(10, 100, 1, 0);
+        reseau.addStation(100, 100, 1, 20);
+        reseau.addStation(250, 100, 1, 60);
+        reseau.addStation(400, 100, 1, 50);
+        reseau.addStation(600, 100, 1, 40);
 
-        Station Station16 = new Station(400, 50);
-        Station Station17 = new Station(400, 600);
-        Station Station18 = new Station(400, 700);
-        Station Station19 = new Station(400, 800);
-        Station Station20 = new Station(400, 4000);
+        //Ligne 2 Bleue
+        reseau.addStation(50, 20, 2, 0);
+        reseau.addStation(100, 100, 2, 20);
+        reseau.addStation(50, 400, 2, 40);
+        reseau.addStation(50, 600, 2, 80);
 
+        //Ligne 3 Bleu Clair
+        reseau.addStation(50, 400, 3, 0);
+        reseau.addStation(520, 400, 3, 20);
+        reseau.addStation(360, 400, 3, 40);
+        reseau.addStation(290, 400, 3, 80);
+        reseau.addStation(160, 400, 3, 80);
 
-        ArrayList<Ligne> lignes = new ArrayList<Ligne>();
+        //Ligne 4 Jaune
+        reseau.addStation(400, 50, 4, 0);
+        reseau.addStation(400, 100, 4, 20);
+        reseau.addStation(360, 400, 4, 40);
+        reseau.addStation(400, 600, 4, 80);
+        reseau.addStation(400, 700, 4, 80);
 
-        Ligne ligneA = new Ligne();
-        Ligne ligneB = new Ligne();
-        Ligne ligneC = new Ligne();
-        Ligne ligneD = new Ligne();
+        reseau.addMetro(1);
+        reseau.addMetro(3);
 
-        ligneA.addStationToLigne(Station1);
-        ligneA.addStationToLigne(Station2);
-        ligneA.addStationToLigne(Station3);
-        ligneA.addStationToLigne(Station4);
-        ligneA.addStationToLigne(Station5);
-        lignes.add(ligneA);
-
-        ligneB.addStationToLigne(Station6);
-        ligneB.addStationToLigne(Station2);
-        ligneB.addStationToLigne(Station8);
-        ligneB.addStationToLigne(Station9);
-        //ligneB.addStationToLigne(Station10);
-        lignes.add(ligneB);
-
-        ligneC.addStationToLigne(Station8);
-        ligneC.addStationToLigne(Station12);
-        ligneC.addStationToLigne(Station13);
-        ligneC.addStationToLigne(Station14);
-        ligneC.addStationToLigne(Station15);
-        lignes.add(ligneC);
-
-        ligneD.addStationToLigne(Station16);
-        ligneD.addStationToLigne(Station4);
-        ligneD.addStationToLigne(Station13);
-        ligneD.addStationToLigne(Station17);
-        ligneD.addStationToLigne(Station18);
-        //ligneD.addStationToLigne(Station19);
-        lignes.add(ligneD);
-
-        Graphe g = new Graphe(lignes);
-
-        Metro metroPremierA = new Metro(10, 100, ligneA);
-        Metro metroPremierB = new Metro(50, 20, ligneB);
-        Metro metroPremierC = new Metro(50, 400, ligneC);
-        Metro metroPremierD = new Metro(400, 50, ligneD);
-        
-        Reseau reseau= new Reseau(g);
         ReseauController controller = new ReseauController(reseau);
-
-        reseau.addMetro(metroPremierA);
-        //g.getMetros().add(metroPremierB);
-        reseau.addMetro(metroPremierC);
-        //g.getMetros().add(metroPremierD);
 
         controller.displayViews();
 
 
         reseau.start();
-        Usager Usager1 = new Usager(10, 20, Station1, Station2);
-        Usager Usager2 = new Usager(10, 30, Station3, Station4);
-
-        
-
-        //reseau.addMetro(metroPremierA);
-
+        //Usager Usager1 = new Usager(10, 20, Station1, Station2);
+        //Usager Usager2 = new Usager(10, 30, Station3, Station4);
 
     }
 }
