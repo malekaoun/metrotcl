@@ -23,7 +23,7 @@ import javax.swing.KeyStroke;
  *
  * @author p0401116
  */
-public class Interface extends ReseauView implements Observer{
+public class Interface extends ReseauView implements Observer {
 
     private Feuille feuille;
     private JFrame frame;
@@ -43,7 +43,7 @@ public class Interface extends ReseauView implements Observer{
 
     private void initInterface() {
         frame.getContentPane().setLayout(new BorderLayout(10, 10));
-        feuille = new Feuille(this.getController().getModel().getGraphe(), this.getController().getModel().getMetros());
+        feuille = new Feuille(this.getController().getModel().getGraphe());
         feuille.setPreferredSize(new Dimension(w, h));
         System.out.println(feuille);
         System.out.println(feuille.getBackground());
@@ -59,9 +59,15 @@ public class Interface extends ReseauView implements Observer{
 
         addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
 
-        for (int i = 0; i < this.getController().getModel().getMetros().size(); i++) {
-            this.getController().getModel().getMetros().get(i).addObserver(this);
+        for (int i = 0; i < this.getController().getModel().getGraphe().getLignes().size(); i++) {
+
+            Ligne l = this.getController().getModel().getGraphe().getLignes().get(i);
+
+            for (int j = 0; j < l.getMetros().size(); j++) {
+                l.getMetros().get(j).addObserver(this);
+            }
         }
+
 
         frame.setLocation(291, 0);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -106,27 +112,21 @@ public class Interface extends ReseauView implements Observer{
 
         Affiche();
 
-        for(int i=0; i<this.getController().getModel().getMetros().size(); i++){
+        for (int i = 0; i < this.getController().getModel().getGraphe().getLignes().size(); i++) {
 
-            Metro m=this.getController().getModel().getMetros().get(i);
+            Ligne l = this.getController().getModel().getGraphe().getLignes().get(i);
 
-            if(m==o){
-                feuille.eraseMetro(m,i+1);
-                feuille.dessineMetro(m,i+1);
-                feuille.drawIt();
+            for (int j = 0; j < l.getMetros().size(); j++) {
+
+                Metro m = l.getMetros().get(j);
+
+                if (m == o) {
+                    feuille.eraseMetro(m, j + 1);
+                    feuille.dessineMetro(m, j + 1);
+                    feuille.drawIt();
+                }
             }
+
         }
-        
-        for(int i=0; i<this.getController().getModel().getMetros().size(); i++){
-
-            Metro m=this.getController().getModel().getMetros().get(i);
-
-            if(m==o){
-                feuille.eraseMetro(m,i+1);
-                feuille.dessineMetro(m,i+1);
-                feuille.drawIt();
-            }
-        }
-
     }
 }

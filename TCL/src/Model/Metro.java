@@ -16,25 +16,25 @@ public class Metro extends Observable {
     private double convDegGrad = 0.0174533;
     private int x;
     private int y;
+    private double dir;
     private int Oldx;
     private int Oldy;
     private ArrayList<Usager> listPassager = new ArrayList<Usager>();
     private static final int maxPlace = 50;
-    private Ligne ligne;
-    private int compteur = 1;
+    private int compteur = 0;
     private boolean avance = true;
+    private boolean sensinverse = false;
+    private int tempsArret = 5;
 
     public Metro(int x, int y, Ligne l) {
         this.x = x;
         this.y = y;
-        this.ligne = l;
     }
 
     public Metro(int x, int y, ArrayList<Usager> list, Ligne l) {
         this.x = x;
         this.y = y;
         this.listPassager = list;
-        this.ligne = l;
     }
 
     public void addUsagerToMetro(Usager u) {
@@ -47,9 +47,9 @@ public class Metro extends Observable {
         this.listPassager.remove(u);
     }
 
-    public void avancer(int dist, int dir) {
-        int newX = (int) Math.round(x + dist * Math.cos(convDegGrad * dir));
-        int newY = (int) Math.round(y + dist * Math.sin(convDegGrad * dir));
+    public void avancer(int dist) {
+        int newX = (int) Math.round(x + dist * Math.cos(convDegGrad * this.dir));
+        int newY = (int) Math.round(y + dist * Math.sin(convDegGrad * this.dir));
 
         this.Oldx = x;
         this.Oldy = y;
@@ -84,20 +84,20 @@ public class Metro extends Observable {
         this.y = y;
     }
 
+    public double getdir() {
+        return this.dir;
+    }
+
+    public void setdir(double d) {
+        this.dir = d;
+    }
+
     public ArrayList<Usager> getListPassager() {
         return listPassager;
     }
 
     public void setListPassager(ArrayList<Usager> listPassager) {
         this.listPassager = listPassager;
-    }
-
-    public Ligne getLigne() {
-        return ligne;
-    }
-
-    public void setLigne(Ligne ligne) {
-        this.ligne = ligne;
     }
 
     public int getMaxPlace() {
@@ -120,26 +120,66 @@ public class Metro extends Observable {
         this.avance = avance;
     }
 
-    public int targetDir(int x, int y) {
-        int d = 0;
-        if (this.getX() > x) {
-            if (this.getY() > y) {
-                double q = (double) ((double) this.getX() - x) / ((double) this.getY() - y);
-                d = (int) (((Math.atan(1 / q)) / Math.PI) * 180 + 180);
-            } else {
-                double q = (double) ((double) this.getX() - x) / ((double) y - this.getY());
-                d = (int) (((Math.atan(q)) / Math.PI) * 180 + 90);
-            }
-        } else {
-            if (this.getY() > y) {
-                double q = (double) ((double) this.getX() - x) / ((double) this.getY() - y);
-                d = (int) (((Math.atan(1 / q)) / Math.PI) * 180 + 180);
-            } else {
-                double q = (double) ((double) this.getX() - x) / ((double) y - this.getY());
-                d = (int) (((Math.atan(q)) / Math.PI) * 180 + 90);
-            }
+    /*public double targetDir(int x, int y) {
+    double d = 0;
+    if (this.getX() > x) {
+    if (this.getY() > y) {
+    double q = (double) ((double) this.getX() - x) / ((double) this.getY() - y);
+    d = (((Math.atan(1 / q)) / Math.PI) * 180 + 180);
+    } else {
+    double q = (double) ((double) this.getX() - x) / ((double) y - this.getY());
+    d = (((Math.atan(q)) / Math.PI) * 180 + 90);
+    }
+    } else {
+    if (this.getY() > y) {
+    double q = (double) ((double) this.getX() - x) / ((double) this.getY() - y);
+    d = (((Math.atan(1 / q)) / Math.PI) * 180 + 180);
+    } else {
+    double q = (double) ((double) this.getX() - x) / ((double) y - this.getY());
+    d = (((Math.atan(q)) / Math.PI) * 180 + 90);
+    }
+    }
+    return d;
+    }*/
+    public double VaVers(int x, int y) {
+        double adjacent = x - this.x;
+        double oppose = y - this.y;
+
+        double angle = 0;
+
+        double angle2 = 0;
+
+        if (adjacent > 0 && oppose <= 0) {
+
+            angle = 180 * Math.atan(-oppose / adjacent) / Math.PI;
+
+
+            angle2 = ((double) (360 - angle - this.dir));
         }
-        return d;
+        if (adjacent > 0 && oppose >= 0) {
+
+            angle = 180 * Math.atan(oppose / adjacent) / Math.PI;
+
+            angle2 = ((double) (-this.dir + angle));
+        }
+        if (adjacent < 0 && oppose <= 0) {
+
+            angle = 180 * Math.atan(oppose / adjacent) / Math.PI;
+
+            angle2 = ((double) (180 - this.dir + angle));
+        }
+
+        if (adjacent < 0 && oppose >= 0) {
+
+            angle = 180 * Math.atan(-oppose / adjacent) / Math.PI;
+
+
+            angle2 = ((double) (180 - angle - this.dir));
+        }
+
+        double newdir = (this.dir + angle2) % 360;
+
+        return newdir;
     }
 
     public int getOldx() {
@@ -148,5 +188,26 @@ public class Metro extends Observable {
 
     public int getOldy() {
         return this.Oldy;
+    }
+
+    public boolean getSensInverse() {
+        return this.sensinverse;
+    }
+
+    public void setSensInverse(boolean b) {
+        this.sensinverse = b;
+    }
+
+    public int gettempsArret() {
+        return this.tempsArret;
+    }
+
+    public void settempsArret(int b) {
+        this.tempsArret = b;
+    }
+
+    public boolean estAUneStation(Station s, int i) {
+
+        return ((this.getX() >= (s.getX() - i)) && (this.getX() <= (s.getX() + i)) && (this.getY() >= (s.getY() - i)) && (this.getY() <= (s.getY() + i)));
     }
 }

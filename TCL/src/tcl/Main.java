@@ -6,8 +6,6 @@ package tcl;
 
 import Controller.ReseauController;
 import Model.*;
-import Vue.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -58,10 +56,11 @@ public class Main {
 
         //Ligne 3 Bleu Clair
         reseau.addStation(50, 400, 3, 0);
-        reseau.addStation(520, 400, 3, 20);
-        reseau.addStation(360, 400, 3, 40);
-        reseau.addStation(290, 400, 3, 80);
         reseau.addStation(160, 400, 3, 80);
+        reseau.addStation(290, 400, 3, 80);
+        reseau.addStation(360, 400, 3, 40);
+        reseau.addStation(520, 400, 3, 20);
+               
 
         //Ligne 4 Jaune
         reseau.addStation(400, 50, 4, 0);
@@ -70,8 +69,8 @@ public class Main {
         reseau.addStation(400, 600, 4, 80);
         reseau.addStation(400, 700, 4, 80);
 
-        reseau.addMetro(1);
-        reseau.addMetro(3);
+        reseau.addMetro(2);
+        //reseau.addMetro(3);
 
         ReseauController controller = new ReseauController(reseau);
 

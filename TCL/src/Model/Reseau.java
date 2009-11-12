@@ -1,60 +1,72 @@
 package Model;
 
-import Vue.Feuille;
 import java.util.ArrayList;
 
 public class Reseau extends Thread {
 
-    private Feuille f;
     private Graphe graphe;
-    private ArrayList<Metro> metros;
+    private boolean stop;
+    private int tempsArret= 20;
+    private int vitesseMetro=500;
 
     public Reseau() {
 
         this.graphe = new Graphe();
-        this.metros = new ArrayList<Metro>();
+        this.stop = false;
     }
 
     @Override
     public void run() {
-        while (true) {
-            //int j=1;
-            for (int i = 0; i < metros.size(); i++) {
-                Metro m = metros.get(i);
-                if (m.isAvance()) {
-                    if (m.getX() < m.getLigne().getListStation().get(m.getCompteur()).getX() || m.getY() < m.getLigne().getListStation().get(m.getCompteur()).getY()) {
-                        int dir = m.targetDir(m.getLigne().getListStation().get(m.getCompteur()).getX(), m.getLigne().getListStation().get(m.getCompteur()).getY());
-                        m.avancer(10, dir);
-                    } else {
-                        m.setCompteur(m.getCompteur() + 1);
-                        if (m.getCompteur() == m.getLigne().getListStation().size()) {
-                            m.setAvance(false);
-                            m.setCompteur(m.getCompteur() - 1);
-                        }
-                    }
-                } else {
-                    System.out.println("recaler " + m.getCompteur() + " x=" + m.getLigne().getListStation().get(m.getCompteur()).getX() +
-                            " y=" + m.getLigne().getListStation().get(m.getCompteur()).getY() + " m.x=" + m.getX() + " m.y=" + m.getY());
-                    if (m.getX() > m.getLigne().getListStation().get(m.getCompteur()).getX() || m.getY() > m.getLigne().getListStation().get(m.getCompteur()).getY()) {
-                        int dir = m.targetDir(m.getLigne().getListStation().get(m.getCompteur()).getX(), m.getLigne().getListStation().get(m.getCompteur()).getY());
-                        m.avancer(10, dir);
-                    } else {
-                        m.setCompteur(m.getCompteur() - 1);
-                        if (m.getCompteur() == -1) {
-                            m.setAvance(true);
-                            m.setCompteur(m.getCompteur() + 1);
-                        }
-                    }
-                }
 
-                try {
-                    Thread.sleep(50);
-                } catch (Exception e) {
-                    System.err.println("erreur: " + e);
+        while (!stop) {
+            for (int i = 0; i < this.graphe.getLignes().size(); i++) {
+
+                Ligne l = this.graphe.getLignes().get(i);
+
+                for (int j = 0; j < l.getMetros().size(); j++) {
+
+                    Metro m = l.getMetros().get(j);
+                    if (m.isAvance()) {
+
+                        Station s = l.nextstation(m);
+                        int distanceToNextStation=l.getAretes().get(m.getCompteur()).getDistance();
+                        m.setdir(m.VaVers(s.getX(), s.getY()));
+                        System.out.println("disttonext" +distanceToNextStation);
+
+                            m.avancer(this.vitesseMetro/distanceToNextStation);
+                        
+
+                        if (m.estAUneStation(s, 15)) {
+                            if (!m.getSensInverse()) {
+                                m.setCompteur(m.getCompteur() + 1);
+                                m.setAvance(false);
+                            } else {
+                                m.setCompteur((m.getCompteur() - 1));
+                                m.setAvance(false);
+                            }
+                        }
+
+                    }
+                    else{
+                        
+                        if(m.gettempsArret()==0){
+                            m.setAvance(true);
+                            m.settempsArret(this.gettempsArret());
+                        }
+                        else{
+                            m.settempsArret(m.gettempsArret()-1);
+                        }
+                    }
                 }
             }
-        }
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+                System.err.println("erreur: " + e);
+            }
 
+
+        }
     }
 
     public Graphe getGraphe() {
@@ -63,21 +75,22 @@ public class Reseau extends Thread {
 
     public Metro addMetro(int idLigne) {
 
-        Station stationDepart = this.graphe.getLignes().get(idLigne - 1).getListStation().get(0);
+        Metro m = null;
 
-        Metro m = new Metro(stationDepart.getX(), stationDepart.getY(), this.graphe.getLignes().get(idLigne - 1));
+        if (idLigne <= this.graphe.getLignes().size()) {
+            Ligne l = this.graphe.getLignes().get(idLigne - 1);
 
-        metros.add(m);
+            Station stationDepart = l.getListStation().get(0);
+
+            m = new Metro(stationDepart.getX(), stationDepart.getY(), l);
+
+            l.addMetro(m);
+
+        } else {
+            System.out.println("Cette ligne n'existe pas: impossible de créer le métro");
+        }
 
         return m;
-    }
-
-    public ArrayList<Metro> getMetros() {
-        return metros;
-    }
-
-    public void setMetros(ArrayList<Metro> metros) {
-        this.metros = metros;
     }
 
     public void addStation(int x, int y, int idLigne, int distance) {
@@ -107,13 +120,13 @@ public class Reseau extends Thread {
 
     }
 
-
-
-    public Feuille getF() {
-        return f;
+    public int gettempsArret() {
+        return this.tempsArret;
     }
 
-    public void setF(Feuille f) {
-        this.f = f;
+    public void settempsArret(int b) {
+       this.tempsArret=b;
     }
+
+
 }

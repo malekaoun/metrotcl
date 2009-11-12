@@ -17,11 +17,10 @@ public class Feuille extends JPanel {
 
     private Graphe graphe;
     Image drawingImage;
-    private ArrayList<Metro> metros;
 
-    public Feuille(Graphe graphe, ArrayList<Metro> m) {
+    public Feuille(Graphe graphe) {
         this.graphe = graphe;
-        this.metros = m;
+
     }
 
     /**
@@ -47,7 +46,6 @@ public class Feuille extends JPanel {
         }
         g.drawImage(drawingImage, 0, 0, null);
 
-        dessineMetros();
     }
 
     /**
@@ -80,26 +78,19 @@ public class Feuille extends JPanel {
                 dessineChemin(graphe.getLignes().get(i), decodeColor(i));
             }
             for (int i = 0; i < graphe.getSommets().size(); i++) {
-                dessineStation(graphe.getSommets().get(i),i+1);
+                dessineStation(graphe.getSommets().get(i), i + 1);
             }
         }
     }
 
-    public void dessineMetros() {
-
-        Graphics g = this.getImageGraphics();
-
-        for (int i = 0; i < metros.size(); i++) {
-            dessineMetro(metros.get(i), i+1);
-        }
-    }
 
     public void dessineStation(Station station, int i) {
         Graphics g = this.getImageGraphics();
         g.setColor(Color.BLACK);
-        g.fillOval(station.getX() - 10, station.getY() - 10, 20, 20);
+        g.fillOval(station.getX() - 10, station.getY() - 10, 30, 30);
+        g.drawString("" + i, station.getX()-15, station.getY()-10);
         g.setColor(Color.white);
-        g.drawString(""+i, station.getX()-5, station.getY()+5);
+        g.drawString("" + station.getListUsager().size(), station.getX(), station.getY()+10);
     }
 
     public void dessineMetro(Metro m, int i) {
@@ -107,16 +98,20 @@ public class Feuille extends JPanel {
         Graphics g = this.getImageGraphics();
 
         g.setColor(Color.RED);
-        g.draw3DRect(m.getX(), m.getY() - 5, 10, 10, true);
-        g.drawString(""+i, m.getX(),m.getY()-5);
+        g.draw3DRect(m.getX()-10, m.getY() - 5, 20, 15, true);
+        g.drawString("" + i, m.getX(), m.getY() - 5);
+        g.setColor(Color.black);
+        g.drawString("" + m.getListPassager().size(), m.getX()-5, m.getY() + 7);
     }
 
     void eraseMetro(Metro m, int i) {
         Graphics g = this.getImageGraphics();
 
         g.setColor(Color.lightGray);
-        g.drawRect(m.getOldx(), m.getOldy() - 5, 10, 10);
-        g.drawString(""+i, m.getOldx(),m.getOldy()-5);
+        g.drawRect(m.getOldx()-10, m.getOldy() - 5, 20, 15);
+        g.drawString("" + i, m.getOldx(), m.getOldy() - 5);
+        g.drawString("" + m.getListPassager().size(), m.getOldx()-5, m.getOldy() + 7);
+
     }
 
     private Color decodeColor(int c) {
@@ -157,12 +152,10 @@ public class Feuille extends JPanel {
         for (int j = 0; j < l.getListStation().size() - 1; j++) {
             g.setColor(c);
 
-            /*JLabel distance= new JLabel(""+l.getAretes().get(j).getDistance());
-
-            this.add(distance);*/
             g.drawLine(l.getListStation().get(j).getX(), l.getListStation().get(j).getY(), l.getListStation().get(j + 1).getX(), l.getListStation().get(j + 1).getY());
             g.drawLine(l.getListStation().get(j).getX() + 1, l.getListStation().get(j).getY() + 1, l.getListStation().get(j + 1).getX() + 1, l.getListStation().get(j + 1).getY() + 1);
             g.drawLine(l.getListStation().get(j).getX() - 1, l.getListStation().get(j).getY() - 1, l.getListStation().get(j + 1).getX() - 1, l.getListStation().get(j + 1).getY() - 1);
+            g.drawString(""+l.getAretes().get(j).getDistance(), l.getListStation().get(j).getX()-(l.getListStation().get(j).getX()-l.getListStation().get(j+1).getX())/2, l.getListStation().get(j).getY()-(l.getListStation().get(j).getY()-l.getListStation().get(j+1).getY())/2);
         }
     }
 }

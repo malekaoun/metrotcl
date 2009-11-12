@@ -6,11 +6,14 @@ public class Ligne {
 
     private ArrayList<Station> listStation;
     private ArrayList<Distance> aretes;
+    private ArrayList<Metro> metros;
+
 
     public Ligne() {
         listStation= new ArrayList<Station>();
         aretes= new ArrayList<Distance>();
-        
+        this.metros = new ArrayList<Metro>();
+
     }
 
     public Ligne(ArrayList<Station> ls) {
@@ -45,8 +48,34 @@ public class Ligne {
         return result;
     }
 
-    public Station nextStation(Station station_courante) {
-        return listStation.get(indiceStation(station_courante)+1);
+    public Station nextstation(Metro m)
+    {
+        System.out.println(m.getCompteur());
+        System.out.println(m.getSensInverse());
+        
+        if(m.getCompteur()>=this.getListStation().size()-1 || m.getCompteur()<0)
+        {
+            m.setSensInverse(!m.getSensInverse());
+            if(!m.getSensInverse())
+            {
+                m.setCompteur(m.getCompteur()+1);
+
+            }
+            else{
+                m.setCompteur(m.getCompteur()-1);
+            }
+        }
+        System.out.println(m.getSensInverse());
+        if(!m.getSensInverse())
+        {
+           return this.getListStation().get(m.getCompteur()+1);
+        }
+        else
+        {
+            return this.getListStation().get(m.getCompteur());
+        }
+
+
     }
 
     //GETTERS and SETTERS
@@ -101,5 +130,14 @@ public class Ligne {
 
     public void setAretes(ArrayList<Distance> aretes) {
         this.aretes = aretes;
+    }
+
+    public ArrayList<Metro> getMetros() {
+        return metros;
+    }
+
+    public void addMetro(Metro m) {
+
+        this.getMetros().add(m);
     }
 }

@@ -25,7 +25,6 @@ public class ReseauController implements ActionListener {
         this.model = r;
         Interface = new Interface(this);
         Controle = new Controle(this);
-        this.model.setF(((Interface) Interface).getFeuille());
     }
 
     /**
@@ -74,7 +73,7 @@ public class ReseauController implements ActionListener {
 
             int i = Controle.getListLignes().getSelectedIndex();
 
-            Metro m = this.model.addMetro(i + 1);
+            Metro m = this.model.addMetro(i+1);
 
             m.addObserver((Observer) this.Interface);
 
