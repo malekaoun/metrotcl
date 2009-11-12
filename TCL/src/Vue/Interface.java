@@ -111,8 +111,19 @@ public class Interface extends ReseauView implements Observer{
             Metro m=this.getController().getModel().getMetros().get(i);
 
             if(m==o){
-                feuille.eraseMetro(m);
-                feuille.dessineMetro(m);
+                feuille.eraseMetro(m,i+1);
+                feuille.dessineMetro(m,i+1);
+                feuille.drawIt();
+            }
+        }
+        
+        for(int i=0; i<this.getController().getModel().getMetros().size(); i++){
+
+            Metro m=this.getController().getModel().getMetros().get(i);
+
+            if(m==o){
+                feuille.eraseMetro(m,i+1);
+                feuille.dessineMetro(m,i+1);
                 feuille.drawIt();
             }
         }

@@ -10,6 +10,7 @@ public class Ligne {
     public Ligne() {
         listStation= new ArrayList<Station>();
         aretes= new ArrayList<Distance>();
+        
     }
 
     public Ligne(ArrayList<Station> ls) {

@@ -47,7 +47,6 @@ public class Reseau extends Thread {
                     }
                 }
 
-               //f.repaint();
                 try {
                     Thread.sleep(50);
                 } catch (Exception e) {

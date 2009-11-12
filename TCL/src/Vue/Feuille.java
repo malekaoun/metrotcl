@@ -80,7 +80,7 @@ public class Feuille extends JPanel {
                 dessineChemin(graphe.getLignes().get(i), decodeColor(i));
             }
             for (int i = 0; i < graphe.getSommets().size(); i++) {
-                dessineStation(graphe.getSommets().get(i));
+                dessineStation(graphe.getSommets().get(i),i+1);
             }
         }
     }
@@ -90,30 +90,33 @@ public class Feuille extends JPanel {
         Graphics g = this.getImageGraphics();
 
         for (int i = 0; i < metros.size(); i++) {
-            dessineMetro(metros.get(i));
+            dessineMetro(metros.get(i), i+1);
         }
     }
 
-    public void dessineStation(Station station) {
+    public void dessineStation(Station station, int i) {
         Graphics g = this.getImageGraphics();
         g.setColor(Color.BLACK);
         g.fillOval(station.getX() - 10, station.getY() - 10, 20, 20);
+        g.setColor(Color.white);
+        g.drawString(""+i, station.getX()-5, station.getY()+5);
     }
 
-    public void dessineMetro(Metro m) {
+    public void dessineMetro(Metro m, int i) {
 
         Graphics g = this.getImageGraphics();
 
         g.setColor(Color.RED);
         g.draw3DRect(m.getX(), m.getY() - 5, 10, 10, true);
+        g.drawString(""+i, m.getX(),m.getY()-5);
     }
 
-    void eraseMetro(Metro m) {
+    void eraseMetro(Metro m, int i) {
         Graphics g = this.getImageGraphics();
 
         g.setColor(Color.lightGray);
         g.drawRect(m.getOldx(), m.getOldy() - 5, 10, 10);
-        //g.fillRect(m.getOldx(), m.getOldy() - 5, 10, 10);
+        g.drawString(""+i, m.getOldx(),m.getOldy()-5);
     }
 
     private Color decodeColor(int c) {
