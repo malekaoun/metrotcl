@@ -1,12 +1,17 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Usager {
+public class Usager extends Observable{
 
-    private String nom;
+    private double convDegGrad = 0.0174533;
     private int x;
     private int y;
+    private double dir;
+    private int Oldx;
+    private int Oldy;
+    private String nom;
     private Station depart;
     private Station destination;
     private Metro metro;
@@ -79,5 +84,17 @@ public class Usager {
     }
     public Metro getMetro(){
         return metro;
+    }
+     public void avancer(int dist) {
+        int newX = (int) Math.round(x + dist * Math.cos(convDegGrad * this.dir));
+        int newY = (int) Math.round(y + dist * Math.sin(convDegGrad * this.dir));
+
+        this.Oldx = x;
+        this.Oldy = y;
+        x = newX;
+        y = newY;
+
+        setChanged();
+        notifyObservers();
     }
 }

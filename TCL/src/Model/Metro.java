@@ -25,16 +25,19 @@ public class Metro extends Observable {
     private boolean avance = true;
     private boolean sensinverse = false;
     private int tempsArret = 5;
+    private int NbPlaceRestante;
 
     public Metro(int x, int y, Ligne l) {
         this.x = x;
         this.y = y;
+        NbPlaceRestante = 50;
     }
 
     public Metro(int x, int y, ArrayList<Usager> list, Ligne l) {
         this.x = x;
         this.y = y;
         this.listPassager = list;
+        NbPlaceRestante = 50 ;
     }
 
     public void addUsagerToMetro(Usager u) {
@@ -209,5 +212,14 @@ public class Metro extends Observable {
     public boolean estAUneStation(Station s, int i) {
 
         return ((this.getX() >= (s.getX() - i)) && (this.getX() <= (s.getX() + i)) && (this.getY() >= (s.getY() - i)) && (this.getY() <= (s.getY() + i)));
+    }
+
+    public int getNbPlaceRestante(){
+
+        return NbPlaceRestante;
+    }
+    public void setNbPlaceRestante(int NbPlaceRestante){
+
+        this.NbPlaceRestante = NbPlaceRestante ;
     }
 }

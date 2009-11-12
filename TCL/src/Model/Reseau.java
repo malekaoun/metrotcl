@@ -6,8 +6,8 @@ public class Reseau extends Thread {
 
     private Graphe graphe;
     private boolean stop;
-    private int tempsArret= 20;
-    private int vitesseMetro=500;
+    private int tempsArret = 20;
+    private int vitesseMetro = 500;
 
     public Reseau() {
 
@@ -29,14 +29,50 @@ public class Reseau extends Thread {
                     if (m.isAvance()) {
 
                         Station s = l.nextstation(m);
-                        int distanceToNextStation=l.getAretes().get(m.getCompteur()).getDistance();
+                        int distanceToNextStation = l.getAretes().get(m.getCompteur()).getDistance();
                         m.setdir(m.VaVers(s.getX(), s.getY()));
-                        System.out.println("disttonext" +distanceToNextStation);
+                        System.out.println("disttonext" + distanceToNextStation);
 
-                            m.avancer(this.vitesseMetro/distanceToNextStation);
-                        
+                        m.avancer(this.vitesseMetro / distanceToNextStation);
+
 
                         if (m.estAUneStation(s, 15)) {
+
+                            if (!s.getListUsager().isEmpty()) {
+
+                                if (m.getNbPlaceRestante() > 0) {
+
+                                    if (m.getNbPlaceRestante() > s.getListUsager().size()) { // on peut faire rentrer tout le monde
+
+                                        int nombrePersonneEntrante = s.getListUsager().size();
+
+                                        for (int k = nombrePersonneEntrante - 1; k >= 0 ; k--) {
+                                            System.out.println("k est egal a :" + k + "size egale a :" + s.getListUsager().size());
+                                            s.getListUsager().get(k).MonterMetro(m);
+                                            m.addUsagerToMetro(s.getListUsager().get(k));
+                                            s.getListUsager().remove(s.getListUsager().get(k));
+                                            m.setNbPlaceRestante(m.getNbPlaceRestante()-1);
+                                        }
+                                    } else {
+                                        System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
+                                        System.out.println("NbPersonne qui attende  :" + s.getListUsager().size());
+                                        int nombrePersonneEntrante = m.getNbPlaceRestante();
+                                        for (int k = nombrePersonneEntrante - 1; k >= 0; k--) {
+                                        System.out.println("NbPersonne qui attende dans la boucle  :" + s.getListUsager().size());
+                                        System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
+                                         System.out.println("k est egal a :" + k );
+                                            s.getListUsager().get(k).MonterMetro(m);
+                                            m.addUsagerToMetro(s.getListUsager().get(k));
+                                            s.getListUsager().remove(s.getListUsager().get(k));
+                                            m.setNbPlaceRestante(m.getNbPlaceRestante()-1);
+                                        }
+                                    }
+
+
+                                }
+                            }
+
+
                             if (!m.getSensInverse()) {
                                 m.setCompteur(m.getCompteur() + 1);
                                 m.setAvance(false);
@@ -46,15 +82,13 @@ public class Reseau extends Thread {
                             }
                         }
 
-                    }
-                    else{
-                        
-                        if(m.gettempsArret()==0){
+                    } else {
+
+                        if (m.gettempsArret() == 0) {
                             m.setAvance(true);
                             m.settempsArret(this.gettempsArret());
-                        }
-                        else{
-                            m.settempsArret(m.gettempsArret()-1);
+                        } else {
+                            m.settempsArret(m.gettempsArret() - 1);
                         }
                     }
                 }
@@ -125,8 +159,6 @@ public class Reseau extends Thread {
     }
 
     public void settempsArret(int b) {
-       this.tempsArret=b;
+        this.tempsArret = b;
     }
-
-
 }
