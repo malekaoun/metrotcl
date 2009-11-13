@@ -49,7 +49,7 @@ public class Controle extends ReseauView {
         //Initialise les menus
                
                 JPanel buttonPanel1 = new JPanel();
-                JPanel buttonPanel2 = new JPanel();
+                //JPanel buttonPanel2 = new JPanel();
                 JPanel StationPanel = new JPanel();
                 JPanel MetroPanel = new JPanel();
                 JPanel SupprimerStation = new JPanel();
@@ -61,20 +61,19 @@ public class Controle extends ReseauView {
                 frame.getContentPane().add(StationPanel,BorderLayout.SOUTH);
 		
                 buttonPanel1.add(Box.createRigidArea(VGAP));
-
-               
+                buttonPanel1.setPreferredSize(new Dimension(250, 100));
 		String[] Station = {"1", "2", "3","4","5","6", "7", "8", "9","10", "11", "12"};
                 String[] Lignes = {"1", "2", "3","4"};
 
 		// Create the combo box
 		
-		JLabel StationdepartLabel = new JLabel(" Selectionner Station de depart: ");
-		buttonPanel1.add(StationdepartLabel);
+		JLabel stationDepartLabel = new JLabel(" Selectionner Station de depart: ");
+		buttonPanel1.add(stationDepartLabel);
               
                 ListStationDepart = new JComboBox(Station);              
 		buttonPanel1.add(ListStationDepart);
-                JLabel StationarriveLabel = new JLabel(" Selectionner Station d'arrivée: ");
-                buttonPanel1.add(StationarriveLabel);
+                JLabel stationArriveLabel = new JLabel(" Selectionner Station d'arrivée: ");
+                buttonPanel1.add(stationArriveLabel);
                 ListStationArrivee = new JComboBox(Station);
                 buttonPanel1.add(ListStationArrivee);
 
@@ -95,16 +94,18 @@ public class Controle extends ReseauView {
 		SupprimeStation.addActionListener(this.getController());*/
 
                 MetroPanel.add(Box.createRigidArea(VGAP));
-                JLabel AjoutMetroLabel = new JLabel(" Ajouter un Metro sur la Ligne :");
+                JLabel AjoutMetroLabel = new JLabel("Ajouter un Metro sur la Ligne:");
                 StationPanel.add(AjoutMetroLabel);
                 ListLignes = new JComboBox(Lignes);
                 StationPanel.add(ListLignes);
 
                 JButton AjoutMetro= new JButton("Ajouter un Metro");
 		StationPanel.add(AjoutMetro);
+                StationPanel.setPreferredSize(new Dimension(200, 70));
 		AjoutMetro.addActionListener(this.getController());
 
                 SupprimerStation.add(Box.createRigidArea(VGAP));
+                SupprimerStation.setPreferredSize(new Dimension(200, 70));
                 JButton SupprimeStation= new JButton("Supprime Station");
                 JLabel Supp = new JLabel("Simulation d'une panne : ");
                 ListLignesASupprimer = new JComboBox(Station);
@@ -131,7 +132,7 @@ public class Controle extends ReseauView {
 
 
 
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         	frame.pack();
   		
    }

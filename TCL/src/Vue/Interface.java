@@ -69,8 +69,8 @@ public class Interface extends ReseauView implements Observer {
         }
 
 
-        frame.setLocation(291, 0);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        frame.setLocation(258, 0);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
 
     }
