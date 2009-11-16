@@ -9,8 +9,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Feuille extends JPanel {

@@ -42,7 +42,7 @@ public class Main {
         Reseau reseau = new Reseau();
 
         //Ligne 1 Noire
-        reseau.addStation(10, 100, 1, 0);
+        reseau.addStation(30, 100, 1, 0);
         reseau.addStation(100, 100, 1, 20);
         reseau.addStation(250, 100, 1, 60);
         reseau.addStation(400, 100, 1, 50);

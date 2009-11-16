@@ -116,7 +116,7 @@ public class Reseau extends Thread {
 
             Station stationDepart = l.getListStation().get(0);
 
-            m = new Metro(stationDepart.getX(), stationDepart.getY(), l);
+            m = new Metro(stationDepart.getX(), stationDepart.getY());
 
             l.addMetro(m);
 

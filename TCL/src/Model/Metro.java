@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Model;
 
 import java.util.ArrayList;
@@ -27,13 +24,13 @@ public class Metro extends Observable {
     private int tempsArret = 5;
     private int NbPlaceRestante;
 
-    public Metro(int x, int y, Ligne l) {
+    public Metro(int x, int y) {
         this.x = x;
         this.y = y;
         NbPlaceRestante = 50;
     }
 
-    public Metro(int x, int y, ArrayList<Usager> list, Ligne l) {
+    public Metro(int x, int y, ArrayList<Usager> list) {
         this.x = x;
         this.y = y;
         this.listPassager = list;
@@ -122,28 +119,7 @@ public class Metro extends Observable {
     public void setAvance(boolean avance) {
         this.avance = avance;
     }
-
-    /*public double targetDir(int x, int y) {
-    double d = 0;
-    if (this.getX() > x) {
-    if (this.getY() > y) {
-    double q = (double) ((double) this.getX() - x) / ((double) this.getY() - y);
-    d = (((Math.atan(1 / q)) / Math.PI) * 180 + 180);
-    } else {
-    double q = (double) ((double) this.getX() - x) / ((double) y - this.getY());
-    d = (((Math.atan(q)) / Math.PI) * 180 + 90);
-    }
-    } else {
-    if (this.getY() > y) {
-    double q = (double) ((double) this.getX() - x) / ((double) this.getY() - y);
-    d = (((Math.atan(1 / q)) / Math.PI) * 180 + 180);
-    } else {
-    double q = (double) ((double) this.getX() - x) / ((double) y - this.getY());
-    d = (((Math.atan(q)) / Math.PI) * 180 + 90);
-    }
-    }
-    return d;
-    }*/
+   
     public double VaVers(int x, int y) {
         double adjacent = x - this.x;
         double oppose = y - this.y;
