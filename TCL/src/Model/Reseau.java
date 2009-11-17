@@ -38,6 +38,12 @@ public class Reseau extends Thread {
 
                         if (m.estAUneStation(s, 15)) {
 
+                            for(int n=0; n<m.getListPassager().size();n++){
+                                Usager u = m.getListPassager().get(n);
+                                if(u.getDestination().equals(s)){
+                                    m.getListPassager().remove(u);
+                                }
+                            }
                             if (!s.getListUsager().isEmpty()) {
 
                                 if (m.getNbPlaceRestante() > 0) {
@@ -48,7 +54,7 @@ public class Reseau extends Thread {
 
                                         for (int k = nombrePersonneEntrante - 1; k >= 0 ; k--) {
                                             System.out.println("k est egal a :" + k + "size egale a :" + s.getListUsager().size());
-                                            s.getListUsager().get(k).MonterMetro(m);
+                                            s.getListUsager().get(k).monterMetro(m);
                                             m.addUsagerToMetro(s.getListUsager().get(k));
                                             s.getListUsager().remove(s.getListUsager().get(k));
                                             m.setNbPlaceRestante(m.getNbPlaceRestante()-1);
@@ -61,7 +67,7 @@ public class Reseau extends Thread {
                                         System.out.println("NbPersonne qui attende dans la boucle  :" + s.getListUsager().size());
                                         System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
                                          System.out.println("k est egal a :" + k );
-                                            s.getListUsager().get(k).MonterMetro(m);
+                                            s.getListUsager().get(k).monterMetro(m);
                                             m.addUsagerToMetro(s.getListUsager().get(k));
                                             s.getListUsager().remove(s.getListUsager().get(k));
                                             m.setNbPlaceRestante(m.getNbPlaceRestante()-1);
@@ -129,7 +135,7 @@ public class Reseau extends Thread {
 
     public void addStation(int x, int y, int idLigne, int distance) {
 
-        Station S = this.getGraphe().ChercheStationdansList(x, y);
+        Station S = this.getGraphe().chercheStationDansList(x, y);
 
         if (S == null) {
 

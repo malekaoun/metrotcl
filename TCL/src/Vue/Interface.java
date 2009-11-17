@@ -104,13 +104,13 @@ public class Interface extends ReseauView implements Observer {
         frame.dispose();
     }
 
-    public void Affiche() {
+    public void affiche() {
         feuille.dessineGraphe();
     }
 
     public void update(Observable o, Object arg1) {
 
-        Affiche();
+        affiche();
 
         for (int i = 0; i < this.getController().getModel().getGraphe().getLignes().size(); i++) {
 

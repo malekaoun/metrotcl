@@ -12,7 +12,7 @@ public class Graphe {
         lignes = new ArrayList<Ligne>();
     }
 
-    public Station ChercheStationdansList(int x, int y){
+    public Station chercheStationDansList(int x, int y){
 
         for(int i=0; i<sommets.size();i++){
             if(sommets.get(i).getX()== x && sommets.get(i).getY()== y)

@@ -47,10 +47,10 @@ public class Controle extends ReseauView {
 
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo.jpg"));
 
-        InitControle();
+        initControle();
     }
 
-   public void  InitControle(){
+   public void  initControle(){
        
        
      

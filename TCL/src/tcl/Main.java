@@ -69,8 +69,8 @@ public class Main {
         reseau.addStation(400, 600, 4, 80);
         reseau.addStation(400, 700, 4, 80);
 
-        reseau.addMetro(2);
-        //reseau.addMetro(3);
+        //reseau.addMetro(2);
+        reseau.addMetro(3);
 
         ReseauController controller = new ReseauController(reseau);
 

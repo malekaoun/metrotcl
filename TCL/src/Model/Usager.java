@@ -75,7 +75,7 @@ public class Usager extends Observable{
     public void setY(int y) {
         this.y = y;
     }
-    public void MonterMetro(Metro m){
+    public void monterMetro(Metro m){
 
         this.metro = m ;
     }
