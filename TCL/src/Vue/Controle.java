@@ -214,5 +214,8 @@ public class Controle extends ReseauView {
 
 
 
+    public JComboBox getListLignesAsupprimer(){
+        return this.ListLignesASupprimer;
+    }
 
 }

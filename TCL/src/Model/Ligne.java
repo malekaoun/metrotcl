@@ -50,8 +50,8 @@ public class Ligne {
 
     public Station nextstation(Metro m)
     {
-        System.out.println(m.getCompteur());
-        System.out.println(m.getSensInverse());
+        //System.out.println(m.getCompteur());
+        //System.out.println(m.getSensInverse());
         
         if(m.getCompteur()>=this.getListStation().size()-1 || m.getCompteur()<0)
         {
@@ -65,7 +65,7 @@ public class Ligne {
                 m.setCompteur(m.getCompteur()-1);
             }
         }
-        System.out.println(m.getSensInverse());
+       // System.out.println(m.getSensInverse());
         if(!m.getSensInverse())
         {
            return this.getListStation().get(m.getCompteur()+1);

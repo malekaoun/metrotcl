@@ -31,7 +31,7 @@ public class Reseau extends Thread {
                         Station s = l.nextstation(m);
                         int distanceToNextStation = l.getAretes().get(m.getCompteur()).getDistance();
                         m.setdir(m.VaVers(s.getX(), s.getY()));
-                        System.out.println("disttonext" + distanceToNextStation);
+                      //  System.out.println("disttonext" + distanceToNextStation);
 
                         m.avancer(this.vitesseMetro / distanceToNextStation);
 
@@ -53,20 +53,20 @@ public class Reseau extends Thread {
                                         int nombrePersonneEntrante = s.getListUsager().size();
 
                                         for (int k = nombrePersonneEntrante - 1; k >= 0 ; k--) {
-                                            System.out.println("k est egal a :" + k + "size egale a :" + s.getListUsager().size());
+                                          //  System.out.println("k est egal a :" + k + "size egale a :" + s.getListUsager().size());
                                             s.getListUsager().get(k).monterMetro(m);
                                             m.addUsagerToMetro(s.getListUsager().get(k));
                                             s.getListUsager().remove(s.getListUsager().get(k));
                                             m.setNbPlaceRestante(m.getNbPlaceRestante()-1);
                                         }
                                     } else {
-                                        System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
-                                        System.out.println("NbPersonne qui attende  :" + s.getListUsager().size());
+                                      //  System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
+                                        //System.out.println("NbPersonne qui attende  :" + s.getListUsager().size());
                                         int nombrePersonneEntrante = m.getNbPlaceRestante();
                                         for (int k = nombrePersonneEntrante - 1; k >= 0; k--) {
-                                        System.out.println("NbPersonne qui attende dans la boucle  :" + s.getListUsager().size());
-                                        System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
-                                         System.out.println("k est egal a :" + k );
+                                      //  System.out.println("NbPersonne qui attende dans la boucle  :" + s.getListUsager().size());
+                                       // System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
+                                        // System.out.println("k est egal a :" + k );
                                             s.getListUsager().get(k).monterMetro(m);
                                             m.addUsagerToMetro(s.getListUsager().get(k));
                                             s.getListUsager().remove(s.getListUsager().get(k));

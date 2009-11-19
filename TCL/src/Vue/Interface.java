@@ -45,8 +45,8 @@ public class Interface extends ReseauView implements Observer {
         frame.getContentPane().setLayout(new BorderLayout(10, 10));
         feuille = new Feuille(this.getController().getModel().getGraphe());
         feuille.setPreferredSize(new Dimension(w, h));
-        System.out.println(feuille);
-        System.out.println(feuille.getBackground());
+      //  System.out.println(feuille);
+       // System.out.println(feuille.getBackground());
 
         frame.getContentPane().add(feuille, "Center");
 

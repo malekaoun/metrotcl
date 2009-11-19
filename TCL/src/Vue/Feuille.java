@@ -70,7 +70,7 @@ public class Feuille extends JPanel {
     public void dessineGraphe() {
 
         Graphics g = this.getImageGraphics();
-        System.out.println(graphe);
+        //System.out.println(graphe);
         if (graphe != null) {
             for (int i = 0; i < graphe.getLignes().size(); i++) {
                 dessineChemin(graphe.getLignes().get(i), decodeColor(i));
