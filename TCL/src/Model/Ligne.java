@@ -85,6 +85,10 @@ public class Ligne {
         return listStation;
     }
 
+    public Station getStationById(int i) {
+        return listStation.get(i);
+    }
+
     public void setListStation(ArrayList<Station> listStation) {
         this.listStation = listStation;
     }
@@ -92,20 +96,7 @@ public class Ligne {
 
     public void addArete (Distance d) {
 
-            for (int i = 0 ; i < aretes.size(); i++) {   /*Mise à jour de la distance entre 2 sommets
-                                                         * si celle-ci a déjà été précisée antérieurement*/
-            if (aretes.get(i).getS1() == d.getS1())
-                if (aretes.get(i).getS2() == d.getS2()) {
-                    aretes.get(i).setDistance(d.getDistance());
-                    return;
-                }
-            else if (aretes.get(i).getS1() == d.getS2())
-                if (aretes.get(i).getS2() == d.getS1()) {
-                    aretes.get(i).setDistance(d.getDistance());
-                    return;
-                }
-            }
-            aretes.add(d); // Sinon on la rajoute
+            aretes.add(d); 
     }
 
     public void rmArete (Distance d) {
@@ -113,15 +104,23 @@ public class Ligne {
     }
 
     public int getDistance (Station s1, Station s2) {
-         for (int i = 0 ; i < aretes.size(); i++) {
-            if (aretes.get(i).getS1() == s1)
-                if (aretes.get(i).getS2() == s2)
-                    return aretes.get(i).getDistance();
-            else if (aretes.get(i).getS1() == s2)
-                if (aretes.get(i).getS2() == s1)
-                    return aretes.get(i).getDistance();
-            }
-         return -1;
+
+         int nb=0;
+         boolean calculdist=false;
+
+         for(int i=0; i<listStation.size(); i++){
+
+             if(calculdist)
+             {
+                 nb=nb+aretes.get(i-1).getDistance();
+             }
+             if(listStation.get(i)==s1 || listStation.get(i)==s2)
+             {
+                 calculdist=!calculdist;
+             }
+         }
+
+         return nb;
     }
 
     public ArrayList<Distance> getAretes() {

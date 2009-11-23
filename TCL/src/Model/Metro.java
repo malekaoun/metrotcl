@@ -16,7 +16,7 @@ public class Metro extends Observable {
     private double dir;
     private int Oldx;
     private int Oldy;
-    private ArrayList<Usager> listPassager = new ArrayList<Usager>();
+    private ArrayList<Usager> listPassager;
     private static final int maxPlace = 50;
     private int compteur = 0;
     private boolean avance = true;
@@ -28,13 +28,7 @@ public class Metro extends Observable {
         this.x = x;
         this.y = y;
         NbPlaceRestante = 50;
-    }
-
-    public Metro(int x, int y, ArrayList<Usager> list) {
-        this.x = x;
-        this.y = y;
-        this.listPassager = list;
-        NbPlaceRestante = 50 ;
+        listPassager = new ArrayList<Usager>();
     }
 
     public void addUsagerToMetro(Usager u) {
@@ -58,13 +52,6 @@ public class Metro extends Observable {
 
         setChanged();
         notifyObservers();
-    }
-
-    public void recaler(int dist, int dir) {
-        int newX = (int) Math.round(x - dist * Math.cos(convDegGrad * dir));
-        int newY = (int) Math.round(y - dist * Math.sin(convDegGrad * dir));
-        x = newX;
-        y = newY;
     }
 
     //GETTERS and SETTERS

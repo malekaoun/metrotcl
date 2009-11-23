@@ -58,15 +58,12 @@ public class ReseauController implements ActionListener {
         String c = e.getActionCommand();
         if (c.equals("Ajouter la personne")) {
 
-            int i = Controle.getListStationDepart().getSelectedIndex();
-            int j = Controle.getListStationArrivee().getSelectedIndex();
+            int depart = Controle.getListStationDepart().getSelectedIndex();
+            int arrivee = Controle.getListStationArrivee().getSelectedIndex();
 
-            Station depart = this.getModel().getGraphe().getSommets().get(i);
-            Station arrivee = this.getModel().getGraphe().getSommets().get(j);
+            Usager u = new Usager(depart, arrivee);
 
-            Usager u = new Usager(depart.getX(), depart.getY(), depart, arrivee);
-
-            depart.addUsagerToStation(u);
+            this.getModel().getGraphe().getSommets().get(depart).addUsagerToStation(u);
 
         }
         if (c.equals("Ajouter un Metro")) {
@@ -85,7 +82,7 @@ public class ReseauController implements ActionListener {
         }
         if (c.equals("Supprime Station")) {
 
-
+            /*
             Station MaStation;
             Station S1;
             Station S2;
@@ -94,33 +91,28 @@ public class ReseauController implements ActionListener {
 
             model.getGraphe().getSommets().remove(i);
             for (int j = 0; j < model.getGraphe().getLignes().size(); j++) {
-                System.out.println("je rentre dans le premier for");
+            System.out.println("je rentre dans le premier for");
 
-                for (int k = 0; k < model.getGraphe().getLignes().get(j).getListStation().size(); k++) {
-                    System.out.println("je rentre dans le 2eme for ");
-                    if (model.getGraphe().getLignes().get(j).indiceStation(model.getGraphe().getLignes().get(j).getListStation().get(k)) == i) {
-                        System.out.println("je trouver ma station");
-                        MaStation = model.getGraphe().getLignes().get(j).getListStation().get(k);
-                        
-                        model.getGraphe().getLignes().get(j).removeStationToLigne(MaStation);
-                        S1 = model.getGraphe().getLignes().get(j).getAretes().get(k).getS1();
-                        S2 = model.getGraphe().getLignes().get(j).getAretes().get(k).getS2();
-                        System.out.println("S1 : " +S1);
-                        System.out.println("S2 : " +S2);
-                       if( model.getGraphe().getLignes().get(j).getDistance(S1, S2)  > 0){
-                        System.out.println("j'ai trouver Deux station");
-                        System.out.println("k = : " +k);
-                           d = model.getGraphe().getLignes().get(j).getAretes().get(k);
-                           model.getGraphe().getLignes().get(j).rmArete(d);
-                       }
+            for (int k = 0; k < model.getGraphe().getLignes().get(j).getListStation().size(); k++) {
+            System.out.println("je rentre dans le 2eme for ");
+            if (model.getGraphe().getLignes().get(j).indiceStation(model.getGraphe().getLignes().get(j).getListStation().get(k)) == i) {
+            System.out.println("je trouver ma station");
+            MaStation = model.getGraphe().getLignes().get(j).getListStation().get(k);
 
-
-                    }
-
-                }
+            model.getGraphe().getLignes().get(j).removeStationToLigne(MaStation);
+            S1 = model.getGraphe().getLignes().get(j).getAretes().get(k).getS1();
+            S2 = model.getGraphe().getLignes().get(j).getAretes().get(k).getS2();
+            System.out.println("S1 : " +S1);
+            System.out.println("S2 : " +S2);
+            if( model.getGraphe().getLignes().get(j).getDistance(S1, S2)  > 0){
+            System.out.println("j'ai trouver Deux station");
+            System.out.println("k = : " +k);
+            d = model.getGraphe().getLignes().get(j).getAretes().get(k);
+            model.getGraphe().getLignes().get(j).rmArete(d);
             }
 
 
+            }*/
         }
     }
 

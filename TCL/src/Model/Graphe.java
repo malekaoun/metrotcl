@@ -22,6 +22,16 @@ public class Graphe {
         return null;
     }
 
+    public int GetIdOfStation(Station s){
+
+        for(int i=0; i<sommets.size();i++){
+            if(sommets.get(i).getX()== s.getX() && sommets.get(i).getY()== s.getY())
+                return i;
+        }
+
+        return -1;
+    }
+
     public void addSommet(Station s) {
         if (!sommets.contains(s)) {
             sommets.add(s);

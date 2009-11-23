@@ -31,51 +31,39 @@ public class Reseau extends Thread {
                         Station s = l.nextstation(m);
                         int distanceToNextStation = l.getAretes().get(m.getCompteur()).getDistance();
                         m.setdir(m.VaVers(s.getX(), s.getY()));
-                      //  System.out.println("disttonext" + distanceToNextStation);
 
                         m.avancer(this.vitesseMetro / distanceToNextStation);
 
 
                         if (m.estAUneStation(s, 15)) {
 
-                            for(int n=0; n<m.getListPassager().size();n++){
-                                Usager u = m.getListPassager().get(n);
-                                if(u.getDestination().equals(s)){
-                                    m.getListPassager().remove(u);
+                            int y = 0;
+                            while ( y < m.getListPassager().size()) {
+
+
+                                if (m.getListPassager().get(y).getDestination() == this.graphe.GetIdOfStation(s)) {
+                                    m.getListPassager().get(y).UsagerDescendDuMetro(m, s);
+                                    System.out.println("descend");
+                                } else {
+                                    y++;
+
                                 }
                             }
+
+                            int k = 0;
+
                             if (!s.getListUsager().isEmpty()) {
 
-                                if (m.getNbPlaceRestante() > 0) {
+                            while (m.getNbPlaceRestante() > 0 && s.getListUsager().size() > k) {
 
-                                    if (m.getNbPlaceRestante() > s.getListUsager().size()) { // on peut faire rentrer tout le monde
 
-                                        int nombrePersonneEntrante = s.getListUsager().size();
-
-                                        for (int k = nombrePersonneEntrante - 1; k >= 0 ; k--) {
-                                          //  System.out.println("k est egal a :" + k + "size egale a :" + s.getListUsager().size());
-                                            s.getListUsager().get(k).monterMetro(m);
-                                            m.addUsagerToMetro(s.getListUsager().get(k));
-                                            s.getListUsager().remove(s.getListUsager().get(k));
-                                            m.setNbPlaceRestante(m.getNbPlaceRestante()-1);
-                                        }
-                                    } else {
-                                      //  System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
-                                        //System.out.println("NbPersonne qui attende  :" + s.getListUsager().size());
-                                        int nombrePersonneEntrante = m.getNbPlaceRestante();
-                                        for (int k = nombrePersonneEntrante - 1; k >= 0; k--) {
-                                      //  System.out.println("NbPersonne qui attende dans la boucle  :" + s.getListUsager().size());
-                                       // System.out.println("NbplaceRestante :" + m.getNbPlaceRestante());
-                                        // System.out.println("k est egal a :" + k );
-                                            s.getListUsager().get(k).monterMetro(m);
-                                            m.addUsagerToMetro(s.getListUsager().get(k));
-                                            s.getListUsager().remove(s.getListUsager().get(k));
-                                            m.setNbPlaceRestante(m.getNbPlaceRestante()-1);
-                                        }
-                                    }
-
+                                if (s.getListUsager().get(k).getDestination() != this.graphe.GetIdOfStation(s)) {
+                                    s.getListUsager().get(k).UsagerMonteDansMetro(m, s);
+                                } else {
+                                    k++;
 
                                 }
+                            }
                             }
 
 
@@ -107,6 +95,7 @@ public class Reseau extends Thread {
 
 
         }
+    
     }
 
     public Graphe getGraphe() {
@@ -152,7 +141,7 @@ public class Reseau extends Thread {
 
             ArrayList<Station> listStation = this.graphe.getLignes().get(idLigne - 1).getListStation();
 
-            Distance d = new Distance(listStation.get(listStation.size() - 1), S, distance);
+            Distance d = new Distance(distance);
 
             this.graphe.getLignes().get(idLigne - 1).addArete(d);
             this.graphe.getLignes().get(idLigne - 1).addStationToLigne(S);

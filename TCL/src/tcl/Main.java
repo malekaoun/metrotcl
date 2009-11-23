@@ -6,6 +6,10 @@ package tcl;
 
 import Controller.ReseauController;
 import Model.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  *
@@ -13,7 +17,7 @@ import Model.*;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
 
         Init();
 
@@ -37,9 +41,25 @@ public class Main {
 
     }
 
-    public static void Init() {
+    public static void Init() throws FileNotFoundException, IOException {
 
         Reseau reseau = new Reseau();
+
+       /* String chemin = System.getProperty("user.dir") + File.separator + "src" + File.separator + "tcl" + File.separator + "test.txt";
+
+        FileInputStream fileIn = new FileInputStream(chemin);
+        int ch;
+        StringBuffer strContent = new StringBuffer("");
+        while( (ch = fileIn.read()) != -1){
+
+            strContent.append((char)ch);
+
+            System.out.println(strContent);
+        }
+
+        System.out.println(strContent);*/
+
+
 
         //Ligne 1 Noire
         reseau.addStation(30, 100, 1, 0);
@@ -60,7 +80,7 @@ public class Main {
         reseau.addStation(290, 400, 3, 80);
         reseau.addStation(360, 400, 3, 40);
         reseau.addStation(520, 400, 3, 20);
-               
+
 
         //Ligne 4 Jaune
         reseau.addStation(400, 50, 4, 0);
@@ -76,10 +96,8 @@ public class Main {
 
         controller.displayViews();
 
-
         reseau.start();
         //Usager Usager1 = new Usager(10, 20, Station1, Station2);
         //Usager Usager2 = new Usager(10, 30, Station3, Station4);
-
     }
 }
