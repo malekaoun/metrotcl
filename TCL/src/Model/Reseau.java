@@ -42,7 +42,7 @@ public class Reseau extends Thread {
 
 
                                 if (m.getListPassager().get(y).getDestination() == this.graphe.GetIdOfStation(s)) {
-                                    m.getListPassager().get(y).UsagerDescendDuMetro(m, s);
+                                    m.getListPassager().get(y).usagerDescendDuMetro(m, s);
                                     System.out.println("descend");
                                 } else {
                                     y++;
@@ -57,8 +57,9 @@ public class Reseau extends Thread {
                             while (m.getNbPlaceRestante() > 0 && s.getListUsager().size() > k) {
 
 
-                                if (s.getListUsager().get(k).getDestination() != this.graphe.GetIdOfStation(s)) {
-                                    s.getListUsager().get(k).UsagerMonteDansMetro(m, s);
+                                if (s.getListUsager().get(k).getDestination() != this.graphe.GetIdOfStation(s)
+                                    && this.graphe.getIdLigneFrIdStation(s.getListUsager().get(k).getDestination())==this.graphe.getIdLigneFrMetro(m)) {
+                                    s.getListUsager().get(k).usagerMonteDansMetro(m, s);
                                 } else {
                                     k++;
 

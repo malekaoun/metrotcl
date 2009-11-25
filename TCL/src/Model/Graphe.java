@@ -32,6 +32,36 @@ public class Graphe {
         return -1;
     }
 
+    public int getIdLigneFrMetro(Metro m){
+        for (int i=0; i<lignes.size(); i++){
+            if(lignes.get(i).getMetros().contains(m)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public Station getStationFrId (int id){
+        if(id<sommets.size()){
+            return sommets.get(id);
+        } else {
+            return null;
+        }
+    }
+    public int getIdLigneFrIdStation(int id){
+        Station s = getStationFrId(id);
+        if(s!=null){
+            for (int i=0; i<lignes.size(); i++){
+                if(lignes.get(i).getListStation().contains(s)){
+                    return i;
+                }
+            }
+            return -1;
+        } else {
+            return -1;
+        }
+    }
+
     public void addSommet(Station s) {
         if (!sommets.contains(s)) {
             sommets.add(s);

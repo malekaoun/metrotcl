@@ -5,36 +5,36 @@ import java.util.Observable;
 
 public class Usager extends Observable {
 
-    private int stationdepart;
-    private int stationdestination;
+    private int stationDepart;
+    private int stationDestination;
     private Metro metro;
     private ArrayList<Correspondance> correspondances = new ArrayList<Correspondance>();
 
     public Usager(int d, int des) {
 
-        this.stationdepart = d;
-        this.stationdestination = des;
+        this.stationDepart = d;
+        this.stationDestination = des;
         this.metro = null;
     }
 
     //GETTERS and SETTERS
     public int getDepart() {
-        return stationdepart;
+        return stationDepart;
     }
 
     public void setDepart(int depart) {
-        this.stationdepart = depart;
+        this.stationDepart = depart;
     }
 
     public int getDestination() {
-        return stationdestination;
+        return stationDestination;
     }
 
     public void setDestination(int destination) {
-        this.stationdestination = destination;
+        this.stationDestination = destination;
     }
 
-    public void UsagerMonteDansMetro(Metro m, Station s) {
+    public void usagerMonteDansMetro(Metro m, Station s) {
 
         this.MonterMetro(m);
         m.addUsagerToMetro(this);
@@ -42,7 +42,7 @@ public class Usager extends Observable {
         m.setNbPlaceRestante(m.getNbPlaceRestante() - 1);
     }
 
-    public void UsagerDescendDuMetro(Metro m, Station s) {
+    public void usagerDescendDuMetro(Metro m, Station s) {
 
         this.descendreMetro();
         m.removeUsagerFrMetro(this);
