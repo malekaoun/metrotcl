@@ -60,8 +60,11 @@ public class ReseauController implements ActionListener {
 
             int depart = Controle.getListStationDepart().getSelectedIndex();
             int arrivee = Controle.getListStationArrivee().getSelectedIndex();
+            Usager u = null;
 
-            Usager u = new Usager(depart, arrivee);
+                u = new Usager(depart, arrivee);
+                
+            
 
             this.getModel().getGraphe().getSommets().get(depart).addUsagerToStation(u);
 

@@ -14,6 +14,7 @@ public class Station {
     private ArrayList<Usager> listUsager = new ArrayList<Usager>();
     private boolean prisMetro;
     private Metro metro;
+    private boolean correspondante=false;
 
 
     public Station(int x, int y){
@@ -80,5 +81,11 @@ public class Station {
         this.prisMetro = prisMetro;
     }
 
+    public boolean isCorrespondante() {
+        return correspondante;
+    }
 
+    public void setCorrespondante(boolean correspondante) {
+        this.correspondante = correspondante;
+    }
 }

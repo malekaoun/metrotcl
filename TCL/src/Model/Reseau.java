@@ -58,7 +58,7 @@ public class Reseau extends Thread {
 
 
                                 if (s.getListUsager().get(k).getDestination() != this.graphe.GetIdOfStation(s)
-                                    && this.graphe.getIdLigneFrIdStation(s.getListUsager().get(k).getDestination())==this.graphe.getIdLigneFrMetro(m)) {
+                                    && this.graphe.getIdLigneFrIdStation(s.getListUsager().get(k).getDestination()).contains(this.graphe.getIdLigneFrMetro(m))) {
                                     s.getListUsager().get(k).usagerMonteDansMetro(m, s);
                                 } else {
                                     k++;
@@ -128,8 +128,9 @@ public class Reseau extends Thread {
         Station S = this.getGraphe().chercheStationDansList(x, y);
 
         if (S == null) {
-
             S = new Station(x, y);
+        } else {
+            S.setCorrespondante(true);
         }
 
         this.graphe.addSommet(S);

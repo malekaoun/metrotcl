@@ -48,18 +48,18 @@ public class Graphe {
             return null;
         }
     }
-    public int getIdLigneFrIdStation(int id){
+
+    public ArrayList getIdLigneFrIdStation(int id){
         Station s = getStationFrId(id);
+        ArrayList<Integer> res = new ArrayList<Integer>();
         if(s!=null){
             for (int i=0; i<lignes.size(); i++){
                 if(lignes.get(i).getListStation().contains(s)){
-                    return i;
+                    res.add(i);
                 }
             }
-            return -1;
-        } else {
-            return -1;
         }
+        return res;
     }
 
     public void addSommet(Station s) {
