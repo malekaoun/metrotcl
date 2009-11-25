@@ -9,6 +9,7 @@ import Vue.Controle;
 import Vue.Interface;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observer;
 
 /**
@@ -61,13 +62,25 @@ public class ReseauController implements ActionListener {
             int depart = Controle.getListStationDepart().getSelectedIndex();
             int arrivee = Controle.getListStationArrivee().getSelectedIndex();
             Usager u = null;
-
-                u = new Usager(depart, arrivee);
-                
+            //Station dep = model.getGraphe().getStationFrId(depart);
+            //Station arr = model.getGraphe().getStationFrId(arrivee);
+            ArrayList<Integer> listCorDep = model.getGraphe().getIdLigneFrIdStation(depart);
+            ArrayList<Integer> listCorArr = model.getGraphe().getIdLigneFrIdStation(arrivee);
+                if (listCorArr.size()>0 && listCorDep.size()>0){
+                    for (int i=0; i<listCorArr.size(); i++){
+                        if (listCorDep.contains(listCorArr.get(i))){
+                            u = new Usager(depart, arrivee);
+                            break;
+                        }
+                    }
+                    if (u==null){
+                    //A faire lorsqu'il y a une correspondance
+                    }
+                    this.getModel().getGraphe().getSommets().get(depart).addUsagerToStation(u);
+                } else {
+                    System.out.println("Le station de depart ou d'arrivee n'existe pas.");
+                }
             
-
-            this.getModel().getGraphe().getSommets().get(depart).addUsagerToStation(u);
-
         }
         if (c.equals("Ajouter un Metro")) {
 

@@ -73,7 +73,8 @@ public class Controle extends ReseauView {
 		
                 buttonPanel1.add(Box.createRigidArea(VGAP));
                 buttonPanel1.setPreferredSize(new Dimension(250, 100));
-		String[] Station = {"1", "2", "3","4","5","6", "7", "8", "9","10", "11", "12"};
+                
+                String[] Station = {"1", "2", "3","4","5","6", "7", "8", "9","10", "11", "12"};
                 String[] Lignes = {"1", "2", "3","4"};
 
 		// Create the combo box
@@ -147,8 +148,6 @@ public class Controle extends ReseauView {
         	frame.pack();
   		
    }
-
-
 
     private void addMenuItem(JMenu m, String label, String command, int key) {
         JMenuItem menuItem = new JMenuItem(label);
