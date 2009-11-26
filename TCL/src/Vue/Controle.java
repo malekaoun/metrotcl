@@ -73,16 +73,27 @@ public class Controle extends ReseauView {
 		
                 buttonPanel1.add(Box.createRigidArea(VGAP));
                 buttonPanel1.setPreferredSize(new Dimension(250, 100));
-                
-                String[] Station = {"1", "2", "3","4","5","6", "7", "8", "9","10", "11", "12"};
-                String[] Lignes = {"1", "2", "3","4"};
+
+                String[] Station = new String[controller.getModel().getGraphe().getSommets().size()];
+                for (int i=0; i<controller.getModel().getGraphe().getSommets().size(); i++){
+                    Integer tmp=i+1;
+                    Station[i]=tmp.toString();
+                }
+
+                String[] Lignes = new String[controller.getModel().getGraphe().getLignes().size()];
+                for (int i=0; i<controller.getModel().getGraphe().getLignes().size(); i++){
+                    Integer tmp=i+1;
+                    Lignes[i]=tmp.toString();
+                }
+                //String[] Station = {"1", "2", "3","4","5","6", "7", "8", "9","10", "11", "12"};
+                //String[] Lignes = {"1", "2", "3","4"};
 
 		// Create the combo box
 		
 		JLabel stationDepartLabel = new JLabel(" Selectionner Station de depart: ");
 		buttonPanel1.add(stationDepartLabel);
               
-                ListStationDepart = new JComboBox(Station);              
+                ListStationDepart = new JComboBox(Station);
 		buttonPanel1.add(ListStationDepart);
                 JLabel stationArriveLabel = new JLabel(" Selectionner Station d'arrivée: ");
                 buttonPanel1.add(stationArriveLabel);
@@ -163,6 +174,7 @@ public class Controle extends ReseauView {
             }
         }
     }
+
     void addButton(JComponent p, String name, String tooltiptext, String imageName) {
 	  JButton b;
 	  if ((imageName == null) || (imageName.equals(""))) {

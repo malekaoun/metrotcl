@@ -3,7 +3,7 @@ package Controller;
 
 public abstract class ReseauView {
 
-    private ReseauController controller = null;
+    protected ReseauController controller = null;
 
     /**
      * Constructeur de ReseauView
