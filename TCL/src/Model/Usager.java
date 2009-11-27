@@ -43,10 +43,12 @@ public class Usager extends Observable {
     }
 
     public void usagerDescendDuMetro(Metro m, Station s) {
-
+        System.out.println("dans descend user");
         this.descendreMetro();
         m.removeUsagerFrMetro(this);
+        System.out.println("apres remove");
         s.addUsagerToStation(this);
+        System.out.println("apres add to station");
         m.setNbPlaceRestante(m.getNbPlaceRestante() + 1);
     }
 
@@ -62,4 +64,13 @@ public class Usager extends Observable {
     public Metro getMetro() {
         return metro;
     }
+
+    public ArrayList<Correspondance> getCorrespondances() {
+        return correspondances;
+    }
+
+    public void setCorrespondances(ArrayList<Correspondance> correspondances) {
+        this.correspondances = correspondances;
+    }
+    
 }

@@ -39,14 +39,30 @@ public class Reseau extends Thread {
 
                             int y = 0;
                             while ( y < m.getListPassager().size()) {
+                                Usager userDescend = m.getListPassager().get(y);
 
-
-                                if (m.getListPassager().get(y).getDestination() == this.graphe.GetIdOfStation(s)) {
-                                    m.getListPassager().get(y).usagerDescendDuMetro(m, s);
+                                if (userDescend.getDestination() == this.graphe.GetIdOfStation(s)) {
+                                    userDescend.usagerDescendDuMetro(m, s);
                                     System.out.println("descend");
                                 } else {
-                                    y++;
+                                    /*if (userDescend.getCorrespondances().size()>0){
+                                        System.out.println("size cor:"+userDescend.getCorrespondances().size()) ;
+                                        for (int r=0; r<userDescend.getCorrespondances().size(); r++){*/
+                                            //System.out.print("id station corr: "+this.graphe.GetIdOfStation(userDescend.getCorrespondances().get(r).getStation()));
+                                            //System.out.println(", id station actu: "+this.graphe.GetIdOfStation(s));
+                                            if(userDescend.getCorrespondances().get(0).getStation().equals(s)){
+                                                System.out.println("dans if: "+this.graphe.GetIdOfStation(s));
+                                                userDescend.usagerDescendDuMetro(m, s);
+                                                System.out.println(userDescend.getMetro());
+                                                //userDescend.getCorrespondances().remove(r);
+                                                //break;
+                                           // }
 
+                                       // }
+                                       // y++;
+                                    }else {
+                                        y++;
+                                    }
                                 }
                             }
 
@@ -55,11 +71,23 @@ public class Reseau extends Thread {
                             if (!s.getListUsager().isEmpty()) {
 
                             while (m.getNbPlaceRestante() > 0 && s.getListUsager().size() > k) {
-
-
-                                if (s.getListUsager().get(k).getDestination() != this.graphe.GetIdOfStation(s)
-                                    && this.graphe.getIdLigneFrIdStation(s.getListUsager().get(k).getDestination()).contains(this.graphe.getIdLigneFrMetro(m))) {
-                                    s.getListUsager().get(k).usagerMonteDansMetro(m, s);
+                                Usager userMonte = s.getListUsager().get(k);
+                                if (userMonte.getDestination() != this.graphe.GetIdOfStation(s)) {
+                                    if(userMonte.getCorrespondances().size()>0){
+                                        // co corr
+                                        for (int z=0; z<userMonte.getCorrespondances().size(); z++){
+                                            if(this.graphe.getIdLigneFrStation(userMonte.getCorrespondances().get(z).getStation()).contains(this.graphe.getIdLigneFrMetro(m))){
+                                                userMonte.usagerMonteDansMetro(m, s);
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        //ko co corr
+                                        if(this.graphe.getIdLigneFrIdStation(userMonte.getDestination()).contains(this.graphe.getIdLigneFrMetro(m))){
+                                            userMonte.usagerMonteDansMetro(m, s);
+                                        }
+                                    }
+                                    
                                 } else {
                                     k++;
 

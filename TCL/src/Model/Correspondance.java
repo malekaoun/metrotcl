@@ -9,6 +9,11 @@ public class Correspondance {
         this.ligne=ligne;
     }
 
+    public Correspondance(){
+        this.station=null;
+        this.ligne=null;
+    }
+
     //GETTERS and SETTERS
     public Ligne getLigne() {
         return ligne;

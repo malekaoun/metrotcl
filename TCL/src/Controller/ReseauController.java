@@ -64,17 +64,21 @@ public class ReseauController implements ActionListener {
             Usager u = null;
             //Station dep = model.getGraphe().getStationFrId(depart);
             //Station arr = model.getGraphe().getStationFrId(arrivee);
-            ArrayList<Integer> listCorDep = model.getGraphe().getIdLigneFrIdStation(depart);
-            ArrayList<Integer> listCorArr = model.getGraphe().getIdLigneFrIdStation(arrivee);
-                if (listCorArr.size()>0 && listCorDep.size()>0){
-                    for (int i=0; i<listCorArr.size(); i++){
-                        if (listCorDep.contains(listCorArr.get(i))){
+            ArrayList<Integer> listLignesDep = model.getGraphe().getIdLigneFrIdStation(depart);
+            ArrayList<Integer> listLignesArr = model.getGraphe().getIdLigneFrIdStation(arrivee);
+                if (listLignesArr.size()>0 && listLignesDep.size()>0){
+                    for (int i=0; i<listLignesArr.size(); i++){
+                        if (listLignesDep.contains(listLignesArr.get(i))){
                             u = new Usager(depart, arrivee);
                             break;
                         }
                     }
                     if (u==null){
                     //A faire lorsqu'il y a une correspondance
+                        u = new Usager(depart, arrivee);
+                        u.getCorrespondances().add(model.getGraphe().getCorres(depart, arrivee));
+                        System.out.print("station corr:"+model.getGraphe().GetIdOfStation(u.getCorrespondances().get(0).getStation()));
+                        System.out.println(", ligne corr:"+model.getGraphe().getIdLigneFrStation(u.getCorrespondances().get(0).getStation()));
                     }
                     this.getModel().getGraphe().getSommets().get(depart).addUsagerToStation(u);
                 } else {

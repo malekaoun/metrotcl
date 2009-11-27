@@ -53,12 +53,18 @@ public class Graphe {
         Station s = getStationFrId(id);
         ArrayList<Integer> res = new ArrayList<Integer>();
         if(s!=null){
-            for (int i=0; i<lignes.size(); i++){
+            res = getIdLigneFrStation(s);
+        }
+        return res;
+    }
+
+    public ArrayList getIdLigneFrStation(Station s){
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        for (int i=0; i<lignes.size(); i++){
                 if(lignes.get(i).getListStation().contains(s)){
                     res.add(i);
                 }
             }
-        }
         return res;
     }
 
@@ -69,6 +75,29 @@ public class Graphe {
             System.out.println("addSommet() : sommet existant");
         }
     }
+
+    public Correspondance getCorres(int depart, int arrivee){
+        Correspondance res = new Correspondance();
+        ArrayList<Integer> listLignesDep = getIdLigneFrIdStation(depart);
+        ArrayList<Integer> listLignesArr = getIdLigneFrIdStation(arrivee);
+        for (int i=0; i<listLignesArr.size(); i++){
+            Ligne ligne = lignes.get(listLignesArr.get(i));
+            for (int j=0; j<ligne.getListStation().size(); j++){
+                if(ligne.getListStation().get(j).isCorrespondante()){
+                    Station tmp = ligne.getListStation().get(j);
+                    ArrayList<Integer> listLignes = getIdLigneFrStation(tmp);
+                    for(int k=0; k<listLignes.size(); k++){
+                        if (listLignesDep.contains(listLignes.get(k))){
+                            res.setStation(tmp);
+                            res.setLigne(lignes.get(listLignes.get(k)));
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
 
     public void rmSommet(Station s) {
         sommets.remove(s);
