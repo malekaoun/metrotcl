@@ -55,6 +55,10 @@ public class ReseauController implements ActionListener {
 
     }
 
+   /**
+    * Gestion des actions utilisateurs (boutons de l'interface)
+    * @param e
+    */
     public void actionPerformed(ActionEvent e) {
         String c = e.getActionCommand();
         if (c.equals("Ajouter la personne")) {
