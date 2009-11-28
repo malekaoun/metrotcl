@@ -30,10 +30,9 @@ public class ReseauController implements ActionListener {
 
     /**
      * Renvoie le model utilisé par le controller
-     * @return Jeu
+     * @return Reseau
      */
     public Reseau getModel() {
-
         return model;
     }
 
@@ -43,7 +42,6 @@ public class ReseauController implements ActionListener {
     public void displayViews() {
         Interface.display();
         Controle.display();
-
     }
 
     /**
