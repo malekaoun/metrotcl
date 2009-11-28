@@ -1,5 +1,12 @@
 package Model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Reseau extends Thread {
@@ -38,7 +45,7 @@ public class Reseau extends Thread {
                         if (m.estAUneStation(s, 15)) {
 
                             int y = 0;
-                            while ( y < m.getListPassager().size()) {
+                            while (y < m.getListPassager().size()) {
                                 Usager userDescend = m.getListPassager().get(y);
 
                                 if (userDescend.getDestination() == this.graphe.GetIdOfStation(s)) {
@@ -46,21 +53,21 @@ public class Reseau extends Thread {
                                     System.out.println("descend");
                                 } else {
                                     /*if (userDescend.getCorrespondances().size()>0){
-                                        System.out.println("size cor:"+userDescend.getCorrespondances().size()) ;
-                                        for (int r=0; r<userDescend.getCorrespondances().size(); r++){*/
-                                            //System.out.print("id station corr: "+this.graphe.GetIdOfStation(userDescend.getCorrespondances().get(r).getStation()));
-                                            //System.out.println(", id station actu: "+this.graphe.GetIdOfStation(s));
-                                            if(userDescend.getCorrespondances().get(0).getStation().equals(s)){
-                                                System.out.println("dans if: "+this.graphe.GetIdOfStation(s));
-                                                userDescend.usagerDescendDuMetro(m, s);
-                                                System.out.println(userDescend.getMetro());
-                                                //userDescend.getCorrespondances().remove(r);
-                                                //break;
-                                           // }
+                                    System.out.println("size cor:"+userDescend.getCorrespondances().size()) ;
+                                    for (int r=0; r<userDescend.getCorrespondances().size(); r++){*/
+                                    //System.out.print("id station corr: "+this.graphe.GetIdOfStation(userDescend.getCorrespondances().get(r).getStation()));
+                                    //System.out.println(", id station actu: "+this.graphe.GetIdOfStation(s));
+                                    if (userDescend.getCorrespondances().get(0).getStation().equals(s)) {
+                                        System.out.println("dans if: " + this.graphe.GetIdOfStation(s));
+                                        userDescend.usagerDescendDuMetro(m, s);
+                                        System.out.println(userDescend.getMetro());
+                                        //userDescend.getCorrespondances().remove(r);
+                                        //break;
+                                        // }
 
-                                       // }
-                                       // y++;
-                                    }else {
+                                        // }
+                                        // y++;
+                                    } else {
                                         y++;
                                     }
                                 }
@@ -70,29 +77,29 @@ public class Reseau extends Thread {
 
                             if (!s.getListUsager().isEmpty()) {
 
-                            while (m.getNbPlaceRestante() > 0 && s.getListUsager().size() > k) {
-                                Usager userMonte = s.getListUsager().get(k);
-                                if (userMonte.getDestination() != this.graphe.GetIdOfStation(s)) {
-                                    if(userMonte.getCorrespondances().size()>0){
-                                        // co corr
-                                        for (int z=0; z<userMonte.getCorrespondances().size(); z++){
-                                            if(this.graphe.getIdLigneFrStation(userMonte.getCorrespondances().get(z).getStation()).contains(this.graphe.getIdLigneFrMetro(m))){
+                                while (m.getNbPlaceRestante() > 0 && s.getListUsager().size() > k) {
+                                    Usager userMonte = s.getListUsager().get(k);
+                                    if (userMonte.getDestination() != this.graphe.GetIdOfStation(s)) {
+                                        if (userMonte.getCorrespondances().size() > 0) {
+                                            // co corr
+                                            for (int z = 0; z < userMonte.getCorrespondances().size(); z++) {
+                                                if (this.graphe.getIdLigneFrStation(userMonte.getCorrespondances().get(z).getStation()).contains(this.graphe.getIdLigneFrMetro(m))) {
+                                                    userMonte.usagerMonteDansMetro(m, s);
+                                                    break;
+                                                }
+                                            }
+                                        } else {
+                                            //ko co corr
+                                            if (this.graphe.getIdLigneFrIdStation(userMonte.getDestination()).contains(this.graphe.getIdLigneFrMetro(m))) {
                                                 userMonte.usagerMonteDansMetro(m, s);
-                                                break;
                                             }
                                         }
-                                    } else {
-                                        //ko co corr
-                                        if(this.graphe.getIdLigneFrIdStation(userMonte.getDestination()).contains(this.graphe.getIdLigneFrMetro(m))){
-                                            userMonte.usagerMonteDansMetro(m, s);
-                                        }
-                                    }
-                                    
-                                } else {
-                                    k++;
 
+                                    } else {
+                                        k++;
+
+                                    }
                                 }
-                            }
                             }
 
 
@@ -124,7 +131,7 @@ public class Reseau extends Thread {
 
 
         }
-    
+
     }
 
     public Graphe getGraphe() {
@@ -185,5 +192,64 @@ public class Reseau extends Thread {
 
     public void settempsArret(int b) {
         this.tempsArret = b;
+    }
+
+    public void AjoutStationParLectureFichier(String cheminfichier) throws FileNotFoundException, IOException {
+
+        try {
+
+            //lecture du fichier texte
+            File f = new File(cheminfichier);
+            InputStream ips = new FileInputStream(f);
+            InputStreamReader ipsr = new InputStreamReader(ips);
+            BufferedReader br = new BufferedReader(ipsr);
+
+            char[] charXstation = new char[3];
+            char[] charYstation = new char[3];
+            char[] charlignestation = new char[1];
+            char[] chardistance = new char[2];
+
+            //Tant qu'il reste des lignes à lire
+            while (br.read(charXstation) > 0) {
+
+                //On saute les lignes de commentaires
+                if (charXstation[0] == '/') {
+
+                    br.readLine();
+
+                } else {
+                    // lecture du premier entier de la ligne puis conversion char[]->String->int
+                    br.skip(1);
+                    String strXstation = String.valueOf(charXstation);
+                    int Xstation = Integer.parseInt(strXstation);
+
+                    // lecture du deuxieme entier de la ligne puis conversion char[]->String->int
+                    br.read(charYstation);
+                    br.skip(1);
+                    String strYstation = String.valueOf(charYstation);
+                    int Ystation = Integer.parseInt(strYstation);
+
+                    // lecture du troisieme entier de la ligne puis conversion char[]->String->int
+                    br.read(charlignestation);
+                    br.skip(1);
+                    String strlignestation = String.valueOf(charlignestation);
+                    int lignestation = Integer.parseInt(strlignestation);
+
+                    // lecture du quatrieme entier de la ligne puis conversion char[]->String->int
+                    br.read(chardistance);
+                    br.skip(2);
+                    String strdistance = String.valueOf(chardistance);
+                    int distance = Integer.parseInt(strdistance);
+
+                    // ajout de la station à partir des 4 entiers lus
+                    this.addStation(Xstation, Ystation, lignestation, distance);
+                }
+            }
+
+            br.close();
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 }

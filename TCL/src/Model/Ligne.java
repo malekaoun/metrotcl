@@ -103,6 +103,10 @@ public class Ligne {
         aretes.remove(d);
     }
 
+    /**Renvoie la distance entre deux stations de la même ligne
+     *
+     * @return int Somme des aretes entre les deux stations
+     */
     public int getDistance (Station s1, Station s2) {
 
          int nb=0;
