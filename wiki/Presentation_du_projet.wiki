@@ -1,0 +1,23 @@
+Salut
+
+Si j'ai bien compris on doit présenter à l'oral le projet Jeudi et le rendre Vendredi,
+donc je fais une petite liste de ce qu'il faut faire d'ici là,
+meme si je sais qu'on a plein d'autres truc à faire:
+
+Important:
+
+Apparement le prof note plutot sur l'aspect organisation et clarté du projet donc:
+- Rapport d'avancement final avec ce qu'on a fait, ce qu'on a pas pu faire...
+-> Preparer ce qu'on va dire Jeudi
+- Clarifier le code: Code propre et commenter (Javadoc), virer tous les print de test etc
+- Gestion des correspondances des usager, calcul de son itineraire (commencée mais marche pas, il me semble que l'erreur est lorsque l'usager descend à sa correspondance il remonte tout de suite dans le metro...)
+
+Moins important si on a le temps (ça m'etonnerait):
+
+- Gerer les pannes (suppression de station, recalcule de l'itineraire) 
+- Frame pour pouvoir suivre un usager ( dans quel metro il est, ou il va)
+- Creer d'autres réseau pour démo via un fichier texte
+
+- Faire une représentation 3D dynamique avec multi-thread parallele et le dernier moteur graphique de chez ... Bon j'arrete.
+
+Enfin si vous avez d'autres idées ou quelque chose à dire hésitez pas, histoire que je sois pas le seul à avoir utiliser le Wiki... 
