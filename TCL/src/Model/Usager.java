@@ -8,13 +8,17 @@ public class Usager extends Observable {
     private int stationDepart;
     private int stationDestination;
     private Metro metro;
-    private ArrayList<Correspondance> correspondances = new ArrayList<Correspondance>();
+    private ArrayList<Correspondance> trajet = new ArrayList<Correspondance>();
+    private int indiceTrajet;
+
+
 
     public Usager(int d, int des) {
 
         this.stationDepart = d;
         this.stationDestination = des;
         this.metro = null;
+        this.indiceTrajet=0;
     }
 
     //GETTERS and SETTERS
@@ -36,6 +40,7 @@ public class Usager extends Observable {
 
     public void usagerMonteDansMetro(Metro m, Station s) {
 
+        System.out.print("monte dans metro");
         this.MonterMetro(m);
         m.addUsagerToMetro(this);
         s.removeUsagerFrStation(this);
@@ -65,12 +70,21 @@ public class Usager extends Observable {
         return metro;
     }
 
-    public ArrayList<Correspondance> getCorrespondances() {
-        return correspondances;
+    public ArrayList<Correspondance> getTrajet() {
+        return trajet;
     }
 
-    public void setCorrespondances(ArrayList<Correspondance> correspondances) {
-        this.correspondances = correspondances;
+    public void setTrajet(ArrayList<Correspondance> trajet) {
+        this.trajet = trajet;
     }
+
+    public int getIndiceTrajet() {
+        return indiceTrajet;
+    }
+
+    public void setIndiceTrajet(int indiceTrajet) {
+        this.indiceTrajet = indiceTrajet;
+    }
+
     
 }

@@ -19,7 +19,7 @@ public class Metro extends Observable {
     private ArrayList<Usager> listPassager;
     private static final int maxPlace = 50;
     private int compteur = 0;
-    private boolean avance = true;
+    private boolean avance;
     private boolean sensinverse = false;
     private int tempsArret = 5;
     private int NbPlaceRestante;
@@ -27,8 +27,9 @@ public class Metro extends Observable {
     public Metro(int x, int y) {
         this.x = x;
         this.y = y;
-        NbPlaceRestante = 50;
+        NbPlaceRestante = maxPlace;
         listPassager = new ArrayList<Usager>();
+        avance=true;
     }
 
     public void addUsagerToMetro(Usager u) {

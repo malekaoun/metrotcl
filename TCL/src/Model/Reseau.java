@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class Reseau extends Thread {
 
@@ -52,24 +51,7 @@ public class Reseau extends Thread {
                                     userDescend.usagerDescendDuMetro(m, s);
                                     System.out.println("descend");
                                 } else {
-                                    /*if (userDescend.getCorrespondances().size()>0){
-                                    System.out.println("size cor:"+userDescend.getCorrespondances().size()) ;
-                                    for (int r=0; r<userDescend.getCorrespondances().size(); r++){*/
-                                    //System.out.print("id station corr: "+this.graphe.GetIdOfStation(userDescend.getCorrespondances().get(r).getStation()));
-                                    //System.out.println(", id station actu: "+this.graphe.GetIdOfStation(s));
-                                    if (userDescend.getCorrespondances().get(0).getStation().equals(s)) {
-                                        System.out.println("dans if: " + this.graphe.GetIdOfStation(s));
-                                        userDescend.usagerDescendDuMetro(m, s);
-                                        System.out.println(userDescend.getMetro());
-                                        //userDescend.getCorrespondances().remove(r);
-                                        //break;
-                                        // }
-
-                                        // }
-                                        // y++;
-                                    } else {
-                                        y++;
-                                    }
+                                    y++;
                                 }
                             }
 
@@ -80,18 +62,26 @@ public class Reseau extends Thread {
                                 while (m.getNbPlaceRestante() > 0 && s.getListUsager().size() > k) {
                                     Usager userMonte = s.getListUsager().get(k);
                                     if (userMonte.getDestination() != this.graphe.GetIdOfStation(s)) {
-                                        if (userMonte.getCorrespondances().size() > 0) {
-                                            // co corr
-                                            for (int z = 0; z < userMonte.getCorrespondances().size(); z++) {
-                                                if (this.graphe.getIdLigneFrStation(userMonte.getCorrespondances().get(z).getStation()).contains(this.graphe.getIdLigneFrMetro(m))) {
-                                                    userMonte.usagerMonteDansMetro(m, s);
-                                                    break;
-                                                }
-                                            }
-                                        } else {
-                                            //ko co corr
-                                            if (this.graphe.getIdLigneFrIdStation(userMonte.getDestination()).contains(this.graphe.getIdLigneFrMetro(m))) {
+                                        if (userMonte.getTrajet().size() > 0) {
+                                            
+                                            boolean monte;
+                                            int indicetrajet=userMonte.getIndiceTrajet();
+
+                                            if (l.indiceStation(s) > 0 && l.indiceStation(s) < l.getListStation().size() - 1) {
+                                                monte = this.graphe.getIdLigneFrMetro(m) == userMonte.getTrajet().get(indicetrajet).getLigne() && m.getSensInverse() == userMonte.getTrajet().get(indicetrajet).isSensInverse();
+                                                
+                                            } else {
+                                                monte = this.graphe.getIdLigneFrMetro(m) == userMonte.getTrajet().get(indicetrajet).getLigne();
+
+                                            }                                            
+                                            if (monte) {
                                                 userMonte.usagerMonteDansMetro(m, s);
+
+                                                if(indicetrajet<userMonte.getTrajet().size()-1){
+                                                    userMonte.setIndiceTrajet(indicetrajet+1);
+                                                }
+                                            } else {
+                                                k++;
                                             }
                                         }
 
@@ -176,12 +166,12 @@ public class Reseau extends Thread {
             this.graphe.addLigne(l);
         } else {
 
-            ArrayList<Station> listStation = this.graphe.getLignes().get(idLigne - 1).getListStation();
+            Ligne ligne = this.graphe.getLignes().get(idLigne - 1);
 
             Distance d = new Distance(distance);
 
-            this.graphe.getLignes().get(idLigne - 1).addArete(d);
-            this.graphe.getLignes().get(idLigne - 1).addStationToLigne(S);
+            ligne.addArete(d);
+            ligne.addStationToLigne(S);
         }
 
     }

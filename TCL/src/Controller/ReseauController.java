@@ -69,19 +69,20 @@ public class ReseauController implements ActionListener {
             ArrayList<Integer> listLignesDep = model.getGraphe().getIdLigneFrIdStation(depart);
             ArrayList<Integer> listLignesArr = model.getGraphe().getIdLigneFrIdStation(arrivee);
                 if (listLignesArr.size()>0 && listLignesDep.size()>0){
-                    for (int i=0; i<listLignesArr.size(); i++){
-                        if (listLignesDep.contains(listLignesArr.get(i))){
+                   /* for (int i=0; i<listLignesArr.size(); i++){
+                        if (listLignesDep.contains(listLignesArr.get(i))){*/
                             u = new Usager(depart, arrivee);
-                            break;
+                            model.getGraphe().CalculTrajet(u);
+                         /*   break;
                         }
                     }
                     if (u==null){
                     //A faire lorsqu'il y a une correspondance
                         u = new Usager(depart, arrivee);
-                        u.getCorrespondances().add(model.getGraphe().getCorres(depart, arrivee));
-                        System.out.print("station corr:"+model.getGraphe().GetIdOfStation(u.getCorrespondances().get(0).getStation()));
-                        System.out.println(", ligne corr:"+model.getGraphe().getIdLigneFrStation(u.getCorrespondances().get(0).getStation()));
-                    }
+                      //  u.getCorrespondances().add(model.getGraphe().getCorres(depart, arrivee));
+                       // System.out.print("station corr:"+model.getGraphe().GetIdOfStation(u.getCorrespondances().get(0).getStation()));
+                       // System.out.println(", ligne corr:"+model.getGraphe().getIdLigneFrStation(u.getCorrespondances().get(0).getStation()));
+                    }*/
                     this.getModel().getGraphe().getSommets().get(depart).addUsagerToStation(u);
                 } else {
                     System.out.println("Le station de depart ou d'arrivee n'existe pas.");

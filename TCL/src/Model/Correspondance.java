@@ -8,56 +8,29 @@ package Model;
  */
 public class Correspondance {
 
-    private Station station;
-    private Ligne ligne;
+    private boolean sensInverse;
+    private int ligne;
 
-    /**
-     * Constructeur par paramètres
-     * @param station
-     * @param ligne
-     */
-    public Correspondance(Station station, Ligne ligne) {
-        this.station = station;
+    public Correspondance(boolean sens, int ligne) {
+        this.sensInverse = sens;
         this.ligne = ligne;
     }
 
-    /**
-     * Constructeur par défault
-     */
-    public Correspondance() {
-        this.station = null;
-        this.ligne = null;
-    }
-
-    /**
-     * Renvoie la ligne (getter)
-     * @return
-     */
-    public Ligne getLigne() {
+    public int getLigne() {
         return ligne;
     }
 
-    /**
-     * Définit la ligne (setter)
-     * @param ligne
-     */
-    public void setLigne(Ligne ligne) {
+    public void setLigne(int ligne) {
         this.ligne = ligne;
     }
 
-    /**
-     * Renvoie la station (getter)
-     * @return
-     */
-    public Station getStation() {
-        return station;
+    public boolean isSensInverse() {
+        return sensInverse;
     }
 
-    /**
-     * Définit la station (setter)
-     * @param station
-     */
-    public void setStation(Station station) {
-        this.station = station;
+    public void setSensInverse(boolean sens) {
+        this.sensInverse = sens;
     }
+
+    
 }
