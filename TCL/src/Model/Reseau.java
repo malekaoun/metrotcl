@@ -46,12 +46,23 @@ public class Reseau extends Thread {
                             int y = 0;
                             while (y < m.getListPassager().size()) {
                                 Usager userDescend = m.getListPassager().get(y);
+                                int indicetrajetDescend = userDescend.getIndiceTrajet();
 
                                 if (userDescend.getDestination() == this.graphe.GetIdOfStation(s)) {
                                     userDescend.usagerDescendDuMetro(m, s);
-                                    System.out.println("descend");
                                 } else {
-                                    y++;
+
+                                    if (userDescend.getTrajet().get(indicetrajetDescend).getIndiceStationCorres() == this.graphe.GetIdOfStation(s)) {
+
+                                        userDescend.usagerDescendDuMetro(m, s);
+
+                                        if (indicetrajetDescend < userDescend.getTrajet().size() - 1) {
+                                            userDescend.setIndiceTrajet(indicetrajetDescend + 1);
+                                        }
+                                    } else {
+                                        y++;
+                                    }
+
                                 }
                             }
 
@@ -61,25 +72,22 @@ public class Reseau extends Thread {
 
                                 while (m.getNbPlaceRestante() > 0 && s.getListUsager().size() > k) {
                                     Usager userMonte = s.getListUsager().get(k);
+
                                     if (userMonte.getDestination() != this.graphe.GetIdOfStation(s)) {
                                         if (userMonte.getTrajet().size() > 0) {
-                                            
+
                                             boolean monte;
-                                            int indicetrajet=userMonte.getIndiceTrajet();
+                                            int indicetrajetMonte = userMonte.getIndiceTrajet();
 
                                             if (l.indiceStation(s) > 0 && l.indiceStation(s) < l.getListStation().size() - 1) {
-                                                monte = this.graphe.getIdLigneFrMetro(m) == userMonte.getTrajet().get(indicetrajet).getLigne() && m.getSensInverse() == userMonte.getTrajet().get(indicetrajet).isSensInverse();
-                                                
-                                            } else {
-                                                monte = this.graphe.getIdLigneFrMetro(m) == userMonte.getTrajet().get(indicetrajet).getLigne();
+                                                monte = this.graphe.getIdLigneFrMetro(m) == userMonte.getTrajet().get(indicetrajetMonte).getLigne() && m.getSensInverse() == userMonte.getTrajet().get(indicetrajetMonte).isSensInverse();
 
-                                            }                                            
+                                            } else {
+                                                monte = this.graphe.getIdLigneFrMetro(m) == userMonte.getTrajet().get(indicetrajetMonte).getLigne();
+
+                                            }
                                             if (monte) {
                                                 userMonte.usagerMonteDansMetro(m, s);
-
-                                                if(indicetrajet<userMonte.getTrajet().size()-1){
-                                                    userMonte.setIndiceTrajet(indicetrajet+1);
-                                                }
                                             } else {
                                                 k++;
                                             }

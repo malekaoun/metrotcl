@@ -10,10 +10,12 @@ public class Correspondance {
 
     private boolean sensInverse;
     private int ligne;
+    private int indiceStationCorres;
 
-    public Correspondance(boolean sens, int ligne) {
+    public Correspondance(boolean sens, int ligne, int indiceStationCorres) {
         this.sensInverse = sens;
         this.ligne = ligne;
+        this.indiceStationCorres=indiceStationCorres;
     }
 
     public int getLigne() {
@@ -32,5 +34,11 @@ public class Correspondance {
         this.sensInverse = sens;
     }
 
-    
+    public int getIndiceStationCorres() {
+        return indiceStationCorres;
+    }
+
+    public void setIndiceStationCorres(int indiceStationCorres) {
+        this.indiceStationCorres = indiceStationCorres;
+    }
 }

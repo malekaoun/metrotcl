@@ -73,6 +73,7 @@ public class ReseauController implements ActionListener {
                         if (listLignesDep.contains(listLignesArr.get(i))){*/
                             u = new Usager(depart, arrivee);
                             model.getGraphe().CalculTrajet(u);
+                            model.getGraphe().getCorres(depart, arrivee);
                          /*   break;
                         }
                     }

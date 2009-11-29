@@ -78,27 +78,29 @@ public class Graphe {
         }
     }
 
-    /*public Correspondance getCorres(int depart, int arrivee) {
-    Correspondance res = new Correspondance();
-    ArrayList<Integer> listLignesDep = getIdLigneFrIdStation(depart);
-    ArrayList<Integer> listLignesArr = getIdLigneFrIdStation(arrivee);
-    for (int i = 0; i < listLignesArr.size(); i++) {
-    Ligne ligne = lignes.get(listLignesArr.get(i));
-    for (int j = 0; j < ligne.getListStation().size(); j++) {
-    if (ligne.getListStation().get(j).isCorrespondante()) {
-    Station tmp = ligne.getListStation().get(j);
-    ArrayList<Integer> listLignes = getIdLigneFrStation(tmp);
-    for (int k = 0; k < listLignes.size(); k++) {
-    if (listLignesDep.contains(listLignes.get(k))) {
-    res.setStation(tmp);
-    res.setLigne(lignes.get(listLignes.get(k)));
+    public int[] getCorres(int depart, int arrivee) {
+
+        ArrayList<Integer> listLignesDep = getIdLigneFrIdStation(depart);
+        ArrayList<Integer> listLignesArr = getIdLigneFrIdStation(arrivee);
+        for (int i = 0; i < listLignesArr.size(); i++) {
+            Ligne ligne = lignes.get(listLignesArr.get(i));
+            for (int j = 0; j < ligne.getListStation().size(); j++) {
+                if (ligne.getListStation().get(j).isCorrespondante()) {
+                    Station tmp = ligne.getListStation().get(j);
+                    ArrayList<Integer> listLignes = getIdLigneFrStation(tmp);
+                    for (int k = 0; k < listLignes.size(); k++) {
+                        if (listLignesDep.contains(listLignes.get(k))) {
+                            int[] res = {j, listLignes.get(k), listLignesArr.get(i)};
+                            System.out.println("j"+j+"k"+ listLignes.get(k)+"arr"+ listLignesArr.get(i));
+                            return res;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
-    }
-    }
-    }
-    }
-    return res;
-    }*/
+
     public void rmSommet(Station s) {
         sommets.remove(s);
     }
@@ -162,9 +164,34 @@ public class Graphe {
             int indiceCourante = this.getLignes().get(ligne).indiceStation(stationCourante);
             int indiceArrivee = this.getLignes().get(ligne).indiceStation(arrivee);
 
-            Correspondance c = new Correspondance((indiceCourante > indiceArrivee), ligne);
+            Correspondance c = new Correspondance((indiceCourante > indiceArrivee), ligne,u.getDestination());
 
             u.getTrajet().add(c);
+
+        } else {
+
+            int[] res = this.getCorres(u.getDepart(), u.getDestination());
+
+            if (res != null) {
+
+                int indiceCourante = this.getLignes().get(res[1]).indiceStation(stationCourante);
+
+                Station corres = this.getLignes().get(res[2]).getStationById(res[0]);
+
+                int indiceCorres = this.getLignes().get(res[1]).indiceStation(corres);
+
+                int indiceCorresdansGraphe=this.GetIdOfStation(corres);
+
+                Correspondance c = new Correspondance((indiceCourante > indiceCorres), res[1], indiceCorresdansGraphe);
+
+                u.getTrajet().add(c);
+
+                int indiceArrivee = this.getLignes().get(res[2]).indiceStation(arrivee);
+
+                Correspondance c2 = new Correspondance((res[0] > indiceArrivee), res[2], u.getDestination());
+
+                u.getTrajet().add(c2);
+            }
 
         }
 
