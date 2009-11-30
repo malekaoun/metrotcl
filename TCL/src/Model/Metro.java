@@ -144,6 +144,11 @@ public class Metro extends Observable {
             angle2 = ((double) (180 - angle - this.dir));
         }
 
+        if(adjacent==0 && oppose<=0)
+        {
+            angle2= ((double) (190));
+        }
+
         double newdir = (this.dir + angle2) % 360;
 
         return newdir;

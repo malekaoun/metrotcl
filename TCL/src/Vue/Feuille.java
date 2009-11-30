@@ -84,6 +84,7 @@ public class Feuille extends JPanel {
         g.setColor(Color.BLACK);
         g.fillOval(station.getX() - 10, station.getY() - 10, 30, 30);
         g.drawString("" + i, station.getX()-15, station.getY()-10);
+        g.drawString("" + station.getNom(), station.getX()+15, station.getY()-10);
         g.setColor(Color.white);
         g.drawString("" + station.getListUsager().size(), station.getX(), station.getY()+10);
     }

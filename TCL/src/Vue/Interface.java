@@ -27,8 +27,8 @@ public class Interface extends ReseauView implements Observer {
 
     private Feuille feuille;
     private JFrame frame;
-    public static final int w = 800;
-    public static final int h = 750;
+    public static final int w = 1000;
+    public static final int h = 850;
 
     public Interface(ReseauController c) {
 

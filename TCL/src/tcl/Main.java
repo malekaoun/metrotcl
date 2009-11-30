@@ -25,12 +25,12 @@ public class Main {
 
         Reseau reseau = new Reseau();
 
-        String chemin = System.getProperty("user.dir") + File.separator + "src" + File.separator + "tcl" + File.separator + "ListStation.txt";
+        String chemin = System.getProperty("user.dir") + File.separator + "src" + File.separator + "tcl" + File.separator + "metroLyon.txt";
 
-        reseau.AjoutStationParLectureFichier(chemin);
+        reseau.AjoutStationParLectureFichier(chemin, true);
 
         //reseau.addMetro(2);
-        reseau.addMetro(3);
+       //reseau.addMetro(3);
 
         ReseauController controller = new ReseauController(reseau);
 

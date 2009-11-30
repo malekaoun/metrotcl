@@ -1,5 +1,3 @@
-
-
 package Model;
 
 import java.util.ArrayList;
@@ -9,34 +7,44 @@ import java.util.ArrayList;
  * @author p0505657
  */
 public class Station {
+
     private int x;
     private int y;
+    private String nom;
     private ArrayList<Usager> listUsager = new ArrayList<Usager>();
     private boolean prisMetro;
     private Metro metro;
-    private boolean correspondante=false;
+    private boolean correspondante = false;
 
-
-    public Station(int x, int y){
-        this.x=x;
-        this.y=y;
-        this.prisMetro=false;
-
-    }
-
-    public Station(int x, int y, ArrayList<Usager> list){
-        this.x=x;
-        this.y=y;
-        this.listUsager=list;
-        this.prisMetro=false;
+    public Station(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.prisMetro = false;
+        this.nom="";
 
     }
 
-    public void addUsagerToStation(Usager u){
+    public Station(int x, int y, String nom) {
+        this.x = x;
+        this.y = y;
+        this.prisMetro = false;
+        this.nom = nom;
+
+    }
+
+    public Station(int x, int y, ArrayList<Usager> list) {
+        this.x = x;
+        this.y = y;
+        this.listUsager = list;
+        this.prisMetro = false;
+
+    }
+
+    public void addUsagerToStation(Usager u) {
         this.listUsager.add(u);
     }
 
-    public void removeUsagerFrStation(Usager u){
+    public void removeUsagerFrStation(Usager u) {
         this.listUsager.remove(u);
     }
 
@@ -87,5 +95,13 @@ public class Station {
 
     public void setCorrespondante(boolean correspondante) {
         this.correspondante = correspondante;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 }

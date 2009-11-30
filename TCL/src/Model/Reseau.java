@@ -35,6 +35,7 @@ public class Reseau extends Thread {
                     if (m.isAvance()) {
 
                         Station s = l.nextstation(m);
+
                         int distanceToNextStation = l.getAretes().get(m.getCompteur()).getDistance();
                         m.setdir(m.VaVers(s.getX(), s.getY()));
 
@@ -156,12 +157,16 @@ public class Reseau extends Thread {
         return m;
     }
 
-    public void addStation(int x, int y, int idLigne, int distance) {
+    public void addStation(int x, int y, int idLigne, int distance, String nom) {
 
         Station S = this.getGraphe().chercheStationDansList(x, y);
 
         if (S == null) {
-            S = new Station(x, y);
+            if (nom == null) {
+                S = new Station(x, y);
+            } else {
+                S = new Station(x, y, nom);
+            }
         } else {
             S.setCorrespondante(true);
         }
@@ -192,7 +197,7 @@ public class Reseau extends Thread {
         this.tempsArret = b;
     }
 
-    public void AjoutStationParLectureFichier(String cheminfichier) throws FileNotFoundException, IOException {
+    public void AjoutStationParLectureFichier(String cheminfichier, boolean avecNom) throws FileNotFoundException, IOException {
 
         try {
 
@@ -206,6 +211,7 @@ public class Reseau extends Thread {
             char[] charYstation = new char[3];
             char[] charlignestation = new char[1];
             char[] chardistance = new char[2];
+            char[] charnom = new char[13];
 
             //Tant qu'il reste des lignes à lire
             while (br.read(charXstation) > 0) {
@@ -235,12 +241,28 @@ public class Reseau extends Thread {
 
                     // lecture du quatrieme entier de la ligne puis conversion char[]->String->int
                     br.read(chardistance);
-                    br.skip(2);
+                    br.skip(1);
                     String strdistance = String.valueOf(chardistance);
                     int distance = Integer.parseInt(strdistance);
 
-                    // ajout de la station à partir des 4 entiers lus
-                    this.addStation(Xstation, Ystation, lignestation, distance);
+                    if(avecNom){
+                    // lecture du nom de la station char[]->String
+                    br.read(charnom);
+                    br.skip(2);
+                    String strnom = String.valueOf(charnom);
+
+                    // ajout de la station à partir des 4 entiers lus et du nom
+                    this.addStation(Xstation, Ystation, lignestation, distance,strnom);
+                
+                    }
+                    else
+                    {
+                        br.skip(1);
+
+                        // ajout de la station à partir des 4 entiers lus
+                        this.addStation(Xstation, Ystation, lignestation, distance, null);
+
+                    }
                 }
             }
 

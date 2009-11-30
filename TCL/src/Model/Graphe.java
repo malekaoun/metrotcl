@@ -91,7 +91,6 @@ public class Graphe {
                     for (int k = 0; k < listLignes.size(); k++) {
                         if (listLignesDep.contains(listLignes.get(k))) {
                             int[] res = {j, listLignes.get(k), listLignesArr.get(i)};
-                            System.out.println("j"+j+"k"+ listLignes.get(k)+"arr"+ listLignesArr.get(i));
                             return res;
                         }
                     }
