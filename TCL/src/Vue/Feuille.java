@@ -81,8 +81,10 @@ public class Feuille extends JPanel {
 
     public void dessineStation(Station station, int i) {
         Graphics g = this.getImageGraphics();
-        g.setColor(Color.BLACK);
+        g.setColor(Color.gray);
+        g.drawOval(station.getX() - 10, station.getY() - 10, 30, 30);
         g.fillOval(station.getX() - 10, station.getY() - 10, 30, 30);
+        g.setColor(Color.black);
         g.drawString("" + i, station.getX()-15, station.getY()-10);
         g.drawString("" + station.getNom(), station.getX()+15, station.getY()-10);
         g.setColor(Color.white);
