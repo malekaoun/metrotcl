@@ -1,0 +1,14 @@
+//Station à ajouter sous la forme: Coordonnées X (3 chiffres) espace Coordonnées Y (3 chiffres)
+//espace Numéro de ligne (1 chiffre) espace distance avec la station précedente (2 chiffres)
+//Ligne 1 Noire
+030 100 1 00
+100 100 1 20
+250 100 1 60
+400 100 1 50
+600 100 1 40
+//Ligne 2 Bleue
+050 020 2 00
+100 100 2 20
+200 300 2 40
+400 100 2 50
+500 050 2 20

@@ -1,8 +1,10 @@
 package Controller;
 
-
+/**
+ * Classe abstraite ReseauView, généralisation des vues de la couche Vue.
+ * @author Mattias GARCIA, Julien LANOISELEE, Romain JACQUET, Tai NGUYEN DAC CONG
+ */
 public abstract class ReseauView {
-
     protected ReseauController controller = null;
 
     /**
@@ -15,7 +17,7 @@ public abstract class ReseauView {
     }
 
     /**
-     * Renvoie le controller utilisé
+     * Renvoie le controleur utilisé
      * @return ReseauController
      */
     public final ReseauController getController() {

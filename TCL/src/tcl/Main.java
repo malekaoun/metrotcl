@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tcl;
 
 import Controller.ReseauController;
@@ -11,35 +7,33 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- *
- * @author p0505657
+ * Exécute l'application TCL :
+ * Simulation du traffic d'un réseau de transport en commun.
+ * @author Mattias GARCIA, Julien LANOISELEE, Romain JACQUET, Tai NGUYEN DAC CONG
  */
 public class Main {
 
+    /**
+     * Fonction main de la classe
+     * @param args String[]
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-
         Init();
     }
 
+    /**
+     * Fonction d'initialisation de la classe (appellée par le constructeur)
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static void Init() throws FileNotFoundException, IOException {
-
         Reseau reseau = new Reseau();
-
         String chemin = System.getProperty("user.dir") + File.separator + "src" + File.separator + "tcl" + File.separator + "metroLyon.txt";
-
         reseau.AjoutStationParLectureFichier(chemin, true);
-
-        //reseau.addMetro(2);
-       //reseau.addMetro(3);
-
         ReseauController controller = new ReseauController(reseau);
-
         controller.displayViews();
-
         reseau.start();
-        //Usager Usager1 = new Usager(10, 20, Station1, Station2);
-        //Usager Usager2 = new Usager(10, 30, Station3, Station4);
     }
-
-    
 }

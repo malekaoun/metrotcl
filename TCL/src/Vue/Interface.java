@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vue;
 
 import Controller.*;
@@ -20,8 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 /**
- *
- * @author p0401116
+ * Fenêtre d'affichage principale (Vue).
+ * Contient une JFrame, qui elle même content une Feuille (pkg Vue).
+ * @author Mattias GARCIA, Julien LANOISELEE, Romain JACQUET, Tai NGUYEN DAC CONG
  */
 public class Interface extends ReseauView implements Observer {
 
@@ -30,23 +27,24 @@ public class Interface extends ReseauView implements Observer {
     public static final int w = 1000;
     public static final int h = 850;
 
+    /**
+     * Constructeur de l'interface.
+     * @param c Controleur
+     */
     public Interface(ReseauController c) {
-
         super(c);
         frame = new JFrame("TCL");
-
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo.jpg"));
         initInterface();
-
-        // System.out.println("dans constructeur"+graphe);
     }
 
+    /**
+     * Initialisation de l'interface (appellée par le constructeur).
+     */
     private void initInterface() {
         frame.getContentPane().setLayout(new BorderLayout(10, 10));
         feuille = new Feuille(this.getController().getModel().getGraphe());
         feuille.setPreferredSize(new Dimension(w, h));
-      //  System.out.println(feuille);
-       // System.out.println(feuille.getBackground());
 
         frame.getContentPane().add(feuille, "Center");
 
@@ -68,13 +66,18 @@ public class Interface extends ReseauView implements Observer {
             }
         }
 
-
         frame.setLocation(258, 0);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-
     }
 
+    /**
+     * Ajoute un élément du menu.
+     * @param m JMenu
+     * @param label String
+     * @param command String
+     * @param key int
+     */
     private void addMenuItem(JMenu m, String label, String command, int key) {
         JMenuItem menuItem = new JMenuItem(label);
         m.add(menuItem);
@@ -90,24 +93,42 @@ public class Interface extends ReseauView implements Observer {
         }
     }
 
+    /**
+     * Renvoie la Feuille.
+     * @return Feuille
+     */
     public Feuille getFeuille() {
         return feuille;
     }
 
+    /**
+     * Surcharge de la méthode display() du controleur.
+     */
     @Override
     public void display() {
         frame.setVisible(true);
     }
 
+    /**
+     * Surcharge de la méthode close() du controleur.
+     */
     @Override
     public void close() {
         frame.dispose();
     }
 
+    /**
+     * Dessin initial du graphe.
+     */
     public void affiche() {
         feuille.dessineGraphe();
     }
 
+    /**
+     * Observe les changements d'états des Metro et les met à jour dans l'interface.
+     * @param o Observable
+     * @param arg1 Object
+     */
     public void update(Observable o, Object arg1) {
 
         affiche();
@@ -126,7 +147,6 @@ public class Interface extends ReseauView implements Observer {
                     feuille.drawIt();
                 }
             }
-
         }
     }
 }
