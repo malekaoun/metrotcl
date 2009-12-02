@@ -200,7 +200,6 @@ public class Controle extends ReseauView {
     /**
      * Renvoie la liste des stations de départ.
      * @return JComboBox
-     * @author Mattias GARCIA, Julien LANOISELEE, Romain JACQUET, Tai NGUYEN DAC CONG
      */
     public JComboBox getListStationDepart() {
         return this.ListStationDepart;
