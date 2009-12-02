@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 /**
- *
- * @author p0505657
+ * Cette classe définit un metro qui contient leurs coordonnées géométriques actuelles,
+ * leurs coordonnées géométriques anciennes,
+ * @author Mattias GARCIA, Julien LANOISELEE, Romain JACQUET, Dac Cong Tai NGUYEN
  */
 public class Metro extends Observable {
 
