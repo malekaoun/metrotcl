@@ -146,6 +146,4 @@ public class Usager extends Observable {
     public void setIndiceTrajet(int indiceTrajet) {
         this.indiceTrajet = indiceTrajet;
     }
-
-
 }
