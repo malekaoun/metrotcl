@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Main {
 
     /**
-     * Fonction main de la classe
+     * Fonction main d'execution du programme
      * @param args String[]
      * @throws FileNotFoundException
      * @throws IOException
@@ -24,7 +24,7 @@ public class Main {
     }
 
     /**
-     * Fonction d'initialisation de la classe (appellée par le constructeur)
+     * Fonction d'initialisation du programme (appellée par le constructeur)
      * @throws FileNotFoundException
      * @throws IOException
      */
