@@ -1,0 +1,13 @@
+Idées pour le rapport d'avancement:
+
+Avancement:
+
+-Création des differentes classes du projet: Model ->Diagramme de classe
+-Mise en place de l'architecture MVC: Controller et Vue
+-Debut d'implementation de l'interface
+-Test avec des données entrées "à la main" dans le main
+
+Problèmes rencontrés:
+-Changement d'hebergement pour le svn prosvn->googlecode
+car plus pratique et plus de place
+

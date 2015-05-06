@@ -1,0 +1,7 @@
+Nous allons développer un programme de simulation d'un trafic de personnes sur un réseau de ligne de métros. Pour cela nous allons modéliser différentes stations qui seront affichées suivant leurs coordonnées géographiques, puis liées entre elles par des rails.
+Un nombre aléatoire de personnes souhaitant utiliser le métro va entrer à une station.
+
+En entrant dans le métro, chaque  personne connait sa station de destination et sa station courante. Notre but sera de faire en sorte que chaque personne mette le moins de temps possible pour effectuer son trajet. Pour cela nous allons introduire un graphe sur lequel nous calculerons le chemin le plus court à emprunter pour chaque personne. Les usagers pourront changer de station de métro, en fonction des différentes informations du réseau qui seront recalculées au fur et à mesure de l’évolution du programme.
+Pour une simulation plus réaliste nous allons introduire des contraintes. L’utilisateur pourra par exemple simuler la panne d'un métro. Les personnes devront alors être automatiquement réorientées en fonction de leur station de destination.
+Selon l'affluence, les personnes pourront embarquer ou non dans une rame de métro, suivant le nombre de places disponibles.
+Les usagers du métro seront initialisés avec une station de départ et une destination aléatoire, mais nous proposerons également à l’utilisateur d’ajouter des personnes « à  la main » avec des trajets déterminés.
